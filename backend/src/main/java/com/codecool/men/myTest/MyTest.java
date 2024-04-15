@@ -1,5 +1,6 @@
-package com.codecool.men;
+package com.codecool.men.myTest;
 
+import com.codecool.men.myTest.MyTestAnimal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

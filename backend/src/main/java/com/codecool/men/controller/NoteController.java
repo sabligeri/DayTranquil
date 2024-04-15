@@ -1,36 +1,34 @@
 package com.codecool.men.controller;
 
+import com.codecool.men.controller.components.NewNote;
 import com.codecool.men.controller.components.Note;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/note")
+@RequestMapping("/note/{userId}")
 public class NoteController {
 
   @GetMapping("/all")
-  public List<Note> getAllNotes() {
+  public List<Note> getAllNotes(@RequestParam int  userId) {
     throw new RuntimeException();
   }
 
-  @GetMapping("/{id}")
-  public Note getNote(RequestParam id) {
+  @GetMapping("/{noteId}")
+  public Note getNote(@RequestParam int  userId, @RequestParam int  noteId) {
     throw new RuntimeException();
   }
 
-  @GetMapping("/delete/{id}")
-  public boolean deleteNote(RequestParam id) {
+  @GetMapping("/delete/{noteId}")
+  public boolean deleteNote(@RequestParam int  userId, @RequestParam int  noteId) {
     throw new RuntimeException();
   }
 
-  @GetMapping("/add")
-  public Note addNote() {
-    throw new RuntimeException();
-  }
+    @GetMapping("/add")
+    public Note addNote(@RequestParam int userId, @RequestBody NewNote newNote) {
+      throw new RuntimeException();
+    }
 
 
 }

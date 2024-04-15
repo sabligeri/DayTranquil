@@ -1,10 +1,9 @@
 package com.codecool.men.controller;
 
+import com.codecool.men.controller.components.NewUser;
 import com.codecool.men.controller.components.Note;
 import com.codecool.men.controller.components.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,22 +12,22 @@ import java.util.List;
 public class UserController {
 
   @GetMapping("/login")
-  public boolean loginUser() {
+  public boolean loginUser(@RequestBody NewUser newUser) {
     throw new RuntimeException();
   }
 
   @GetMapping("/edit")
-  public User editUser() {
+  public User editUser(@RequestBody User user) {
     throw new RuntimeException();
   }
 
-  @GetMapping("/delete")
-  public boolean delete() {
+  @GetMapping("/delete/{userId}")
+  public boolean delete(@RequestParam int userId) {
     throw new RuntimeException();
   }
 
   @GetMapping("/add")
-  public User addUser() {
+  public User addUser(@RequestBody NewUser newUser) {
     throw new RuntimeException();
   }
 

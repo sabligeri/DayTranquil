@@ -1,3 +1,3 @@
-package com.codecool.men;
+package com.codecool.men.myTest;
 
 public record MyTestAnimal (String name){}

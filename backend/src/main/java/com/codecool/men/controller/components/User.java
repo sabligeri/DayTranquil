@@ -1,4 +1,12 @@
 package com.codecool.men.controller.components;
 
-public record User() {
+import java.util.Date;
+import java.util.List;
+
+public record User(
+        int id,
+        String name,
+        String password,
+        List<Note> notes
+) {
 }
