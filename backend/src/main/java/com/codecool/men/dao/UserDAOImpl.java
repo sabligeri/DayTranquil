@@ -14,6 +14,7 @@ public class UserDAOImpl implements UserDAO{
 
   public UserDAOImpl() {
     this.users = new HashSet<>();
+    createUsers();
   }
 
   @Override
@@ -30,5 +31,13 @@ public class UserDAOImpl implements UserDAO{
   @Override
   public void addUser(UserOperationsDTO userOperationsDTO) {
     users.add(new User(userOperationsDTO.name(), userOperationsDTO.password()));
+  }
+
+  private void createUsers(){
+    users.add(new User( "Alice", "password1"));
+    users.add(new User( "Bob", "password2"));
+    users.add(new User( "test", "test"));
+    users.add(new User( "test2", "test2"));
+    users.add(new User( "test1", "test1"));
   }
 }

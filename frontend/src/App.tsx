@@ -1,4 +1,3 @@
-
 import './App.css';
 import { NavLink, Outlet } from "react-router-dom";
 
@@ -8,7 +7,6 @@ function App() {
 
     <div className="root-layout">
       <header id="header">
-        
         <nav id="navbar">
           <NavLink to="/login">
             Login
