@@ -4,6 +4,7 @@ import com.codecool.men.dao.UserDAO;
 import com.codecool.men.controller.dto.UserDTO;
 import com.codecool.men.controller.dto.NewUserDTO;
 import com.codecool.men.dao.model.User;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -29,6 +30,7 @@ public class UserService {
     } else {
       return new UserDTO(user.get().userId(), false, true);
     }
+
   }
 
   public User editUser(User user) {

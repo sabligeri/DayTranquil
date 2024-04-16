@@ -3,6 +3,7 @@ package com.codecool.men.controller;
 import com.codecool.men.controller.dto.UserDTO;
 import com.codecool.men.controller.dto.NewUserDTO;
 import com.codecool.men.dao.model.User;
+
 import com.codecool.men.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ public class UserController {
   public UserController(UserService userService) {
     this.userService = userService;
   }
+
 
   @PostMapping("/login")
   public UserDTO loginUser(@RequestBody NewUserDTO newUserDTO) {
