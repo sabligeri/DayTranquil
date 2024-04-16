@@ -1,0 +1,58 @@
+/* #note-headbar {
+  /* background-color: aqua; */
+  display: flex;
+  justify-content: space-between;
+}
+ */
+
+
+
+#note-headbar-spacer{
+  top: 0;
+  background-color: rgb(255, 196, 0);
+}
+
+#note-user-name{
+  margin-left: 10%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  height: 50px;
+  margin-top: 0;
+  background-color: rgba(0, 255, 255, 0.227);
+  position: fixed;
+  top: 0;
+  width: 51%;
+  z-index: 2;
+  vertical-align: text-top;
+  border-radius: 0% 0% 0% 50px;
+  
+}
+
+#add-note{
+  background-color: rgba(0, 255, 255, 0.227);
+  padding: 3vw;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  width: 33%;
+  right: 0;
+  height: 200px;
+  border-radius: 0% 0% 0% 50px;
+}
+
+#note-grid{
+  padding: 1vw;
+  display: grid;
+  grid-template-columns: repeat(5, auto );
+  column-gap: 1vw;
+  row-gap: 1vw;
+}
+
+#note{
+  background-color: #00000030;
+}
+
+#note-list{
+  margin-top: 100px;
+}

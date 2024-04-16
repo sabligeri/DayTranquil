@@ -1,7 +1,7 @@
 package com.codecool.men.controller;
 
-import com.codecool.men.controller.components.NewNote;
-import com.codecool.men.controller.components.Note;
+import com.codecool.men.controller.dto.NewNoteDTO;
+import com.codecool.men.dao.model.Note;
 import com.codecool.men.service.NoteService;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +32,8 @@ public class NoteController {
     }
 
     @PostMapping("/add")
-    public Note addNote(@PathVariable int userId, @RequestBody NewNote newNote) {
-        return noteService.addNote(userId, newNote);
+    public Note addNote( @RequestBody NewNoteDTO newNoteDTO) {
+        return noteService.addNote(newNoteDTO);
     }
 
 

@@ -1,4 +1,4 @@
-package com.codecool.men.controller.components;
+package com.codecool.men.dao.model;
 
 import java.util.Date;
 

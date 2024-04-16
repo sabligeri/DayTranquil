@@ -1,12 +1,12 @@
 package com.codecool.men.dao;
 
-import com.codecool.men.dtos.UserOperationsDTO;
-import com.codecool.men.model.User;
+import com.codecool.men.controller.dto.NewUserDTO;
+import com.codecool.men.dao.model.User;
 
 import java.util.UUID;
 
 public interface UserDAO {
   User getUserByName(String name);
-  void deleteUser(UUID userId);
-  void addUser(UserOperationsDTO userOperationsDTO);
+  boolean deleteUser(UUID userId);
+  void addUser(NewUserDTO newUserDTO);
 }

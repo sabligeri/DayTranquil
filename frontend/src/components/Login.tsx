@@ -13,7 +13,7 @@ export default function Login() {
     if (id > 0) {
       setUserId(id);
     }
-  }, [handleSubmit]);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,10 +35,9 @@ export default function Login() {
       
       if (response.ok) {
         const responseUser = await response.json();
-        console.log( JSON.stringify(responseUser))
         localStorage.setItem('userId', JSON.stringify(responseUser.userID));
-        navigate('/');
-        
+        setUserId(responseUser.userID)
+        navigate('/main');
       } else {
         console.error('Failed to add the user');
       }
@@ -66,7 +65,7 @@ export default function Login() {
         <h4>Login: </h4>
         <div className="form-row">
           <label htmlFor="userName" className="form-label">
-            Username
+            Username 
           </label>
           <input
             type="text"

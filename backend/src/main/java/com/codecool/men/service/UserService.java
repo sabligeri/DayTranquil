@@ -1,9 +1,10 @@
 package com.codecool.men.service;
 
 import com.codecool.men.dao.UserDAO;
-import com.codecool.men.dtos.UserLoginDataDTO;
-import com.codecool.men.dtos.UserOperationsDTO;
-import com.codecool.men.model.User;
+import com.codecool.men.controller.dto.UserDTO;
+import com.codecool.men.controller.dto.NewUserDTO;
+import com.codecool.men.dao.model.User;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -18,17 +19,17 @@ public class UserService {
     this.userDAO = userDAO;
   }
 
-  public UserLoginDataDTO loginUser(UserOperationsDTO userOperationsDTO) {
-      Optional<User> user = Optional.ofNullable(userDAO.getUserByName(userOperationsDTO.name()));
-      boolean userNameCheck = true;
-      boolean passwordCheck = true;
-      if(user.isEmpty()){
-        return new UserLoginDataDTO(null, true, false);
-      }
-      if(!Objects.equals(user.get().getPassword(), userOperationsDTO.password())){
-        passwordCheck = false;
-      }
-      return new UserLoginDataDTO(user.get().getUserId(), passwordCheck, userNameCheck);
+  public UserDTO loginUser(NewUserDTO newUserDTO) {
+    Optional<User> user = Optional.ofNullable(userDAO.getUserByName(newUserDTO.name()));
+
+    if (user.isEmpty()) {
+      return new UserDTO(null, null, false);
+    }
+    if (Objects.equals(user.get().password(), newUserDTO.password())) {
+      return new UserDTO(user.get().userId(), true, true);
+    } else {
+      return new UserDTO(user.get().userId(), false, true);
+    }
 
   }
 
@@ -36,11 +37,11 @@ public class UserService {
     throw new RuntimeException();
   }
 
-  public void deleteUser(UUID userId) {
-    userDAO.deleteUser(userId);
+  public boolean deleteUser(UUID userId) {
+    return userDAO.deleteUser(userId);
   }
 
-  public void addUser(UserOperationsDTO newUser) {
+  public void addUser(NewUserDTO newUser) {
     userDAO.addUser(newUser);
   }
 

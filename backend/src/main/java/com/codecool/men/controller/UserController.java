@@ -1,8 +1,9 @@
 package com.codecool.men.controller;
 
-import com.codecool.men.dtos.UserLoginDataDTO;
-import com.codecool.men.dtos.UserOperationsDTO;
-import com.codecool.men.model.User;
+import com.codecool.men.controller.dto.UserDTO;
+import com.codecool.men.controller.dto.NewUserDTO;
+import com.codecool.men.dao.model.User;
+
 import com.codecool.men.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,23 +20,22 @@ public class UserController {
 
 
   @PostMapping("/login")
-  public UserIDDTO loginUser(@RequestBody UserOperationsDTO userOperationsDTO) {
-    return userService.loginUser(userOperationsDTO);
+  public UserDTO loginUser(@RequestBody NewUserDTO newUserDTO) {
+    return userService.loginUser(newUserDTO);
   }
 
   @GetMapping("/edit/{userId}")
-  public User editUser(@PathVariable UUID userID, @RequestBody User user) {
+  public User editUser(@RequestBody User user) {
     throw new RuntimeException();
   }
 
   @DeleteMapping("/delete/{userId}")
-  public void delete(@PathVariable UUID userId) {
-    userService.deleteUser(userId);
+  public boolean delete(@PathVariable UUID userId) {
+    return userService.deleteUser(userId);
   }
 
   @PostMapping("/add")
-  public void addUser(@RequestBody UserOperationsDTO newUser) {
-    System.out.println(newUser);
+  public void addUser(@RequestBody NewUserDTO newUser) {
     userService.addUser(newUser);
   }
 
