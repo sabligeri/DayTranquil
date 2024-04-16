@@ -18,18 +18,18 @@ public class NoteService {
     }
 
     public List<Note> getAllNotes(int userId) {
-        throw new RuntimeException();
+        return noteDao.getAllNotes(userId);
     }
 
     public Note getNote(int userId, int noteId) {
-        throw new RuntimeException();
+        return noteDao.getNote(userId, noteId);
     }
 
     public boolean deleteNote(int userId, int noteId) {
-        throw new RuntimeException();
+        return noteDao.deleteNote(userId, noteId);
     }
 
     public Note addNote(int userId, NewNote newNote) {
-        throw new RuntimeException();
+        return noteDao.addNote(userId, newNote);
     }
 }
