@@ -5,6 +5,7 @@ import java.util.Date;
 public record NewNote(
         String title,
         String text,
-        Date created
+        Date created,
+        int userId
 ) {
 }

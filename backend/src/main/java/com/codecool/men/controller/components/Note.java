@@ -6,6 +6,7 @@ public record Note(
         int id,
         String title,
         String text,
-        Date created
+        Date created,
+        int userId
 ) {
 }
