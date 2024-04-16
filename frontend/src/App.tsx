@@ -1,5 +1,6 @@
 import './App.css'
 import MyTest from './components/MyTest'
+import Note from './components/Note'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <h1>Hello!</h1>
       <MyTest/>
+      <Note />
     </>
   )
 }

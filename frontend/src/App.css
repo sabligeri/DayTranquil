@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+th,
+h3 {
+  padding: 10px;
+}
