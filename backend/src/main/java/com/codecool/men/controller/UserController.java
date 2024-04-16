@@ -23,7 +23,7 @@ public class UserController {
   }
 
   @GetMapping("/edit/{userId}")
-  public com.codecool.men.model.User editUser(@PathVariable UUID userID, @RequestBody User user) {
+  public User editUser(@PathVariable UUID userID, @RequestBody User user) {
     throw new RuntimeException();
   }
 
