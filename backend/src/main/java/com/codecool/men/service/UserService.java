@@ -1,7 +1,7 @@
 package com.codecool.men.service;
 
 import com.codecool.men.dao.UserDAO;
-import com.codecool.men.dtos.UserIDDTO;
+import com.codecool.men.dtos.UserLoginDataDTO;
 import com.codecool.men.dtos.UserOperationsDTO;
 import com.codecool.men.model.User;
 import org.springframework.stereotype.Service;
@@ -18,17 +18,17 @@ public class UserService {
     this.userDAO = userDAO;
   }
 
-  public UserIDDTO loginUser(UserOperationsDTO userOperationsDTO) {
+  public UserLoginDataDTO loginUser(UserOperationsDTO userOperationsDTO) {
       Optional<User> user = Optional.ofNullable(userDAO.getUserByName(userOperationsDTO.name()));
-      boolean userNameCheck = false;
-      boolean passwordCheck = false;
+      boolean userNameCheck = true;
+      boolean passwordCheck = true;
       if(user.isEmpty()){
-        return new UserIDDTO(null, true, false);
+        return new UserLoginDataDTO(null, true, false);
       }
-      if(Objects.equals(user.get().getPassword(), userOperationsDTO.password())){
-        passwordCheck = true;
+      if(!Objects.equals(user.get().getPassword(), userOperationsDTO.password())){
+        passwordCheck = false;
       }
-      return new UserIDDTO(user.get().getUserId(), passwordCheck, userNameCheck);
+      return new UserLoginDataDTO(user.get().getUserId(), passwordCheck, userNameCheck);
 
   }
 
