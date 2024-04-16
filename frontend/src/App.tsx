@@ -1,16 +1,25 @@
-import './App.css'
-import MyTest from './components/MyTest'
-import Note from './components/Note'
+
+import './App.css';
+import { NavLink, Outlet } from "react-router-dom";
 
 function App() {
 
   return (
-    <>
-      <h1>Hello!</h1>
-      <MyTest/>
-      <Note />
-    </>
-  )
+
+    <div className="root-layout">
+      <header id="header">
+        
+        <nav id="navbar">
+          <NavLink to="/login">
+            Login
+          </NavLink>
+        </nav>
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
 }
 
 export default App
