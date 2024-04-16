@@ -2,10 +2,9 @@ package com.codecool.men.service;
 
 import com.codecool.men.controller.components.NewNote;
 import com.codecool.men.controller.components.Note;
-import com.codecool.men.dao.note.NoteDaoImpl;
+import com.codecool.men.dao.NoteDaoImpl;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service

@@ -1,34 +1,40 @@
 package com.codecool.men.controller;
 
-import com.codecool.men.controller.components.NewUser;
-import com.codecool.men.controller.components.Note;
-import com.codecool.men.controller.components.User;
+import com.codecool.men.dtos.UserIDDTO;
+import com.codecool.men.dtos.UserOperationsDTO;
+import com.codecool.men.model.User;
+import com.codecool.men.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+  private UserService userService;
+
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
   @GetMapping("/login")
-  public boolean loginUser(@RequestBody NewUser newUser) {
+  public UserIDDTO loginUser(@RequestBody UserOperationsDTO userOperationsDTO) {
+    return userService.loginUser(userOperationsDTO);
+  }
+
+  @GetMapping("/edit/{userId}")
+  public User editUser(@PathVariable UUID userID, @RequestBody User user) {
     throw new RuntimeException();
   }
 
-  @GetMapping("/edit")
-  public User editUser(@RequestBody User user) {
-    throw new RuntimeException();
+  @DeleteMapping("/delete/{userId}")
+  public void delete(@PathVariable UUID userId) {
+    userService.deleteUser(userId);
   }
 
-  @GetMapping("/delete/{userId}")
-  public boolean delete(@RequestParam int userId) {
-    throw new RuntimeException();
-  }
-
-  @GetMapping("/add")
-  public User addUser(@RequestBody NewUser newUser) {
-    throw new RuntimeException();
+  @PostMapping("/add")
+  public void addUser(@RequestBody UserOperationsDTO newUser) {
+    userService.addUser(newUser);
   }
 
 }

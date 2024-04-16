@@ -1,4 +1,4 @@
-package com.codecool.men.dao.note;
+package com.codecool.men.dao;
 
 import com.codecool.men.controller.components.NewNote;
 import com.codecool.men.controller.components.Note;
