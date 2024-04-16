@@ -44,9 +44,9 @@ export default function AddNote() {
   }
 
   return (
-    <div>
+    <div id="add-note">
       <div>
-        <h1>Add new note</h1>
+        <h2>Add new note</h2>
         <button onClick={() => handleAddNote()}>+</button>
       </div>
       <textarea onChange={(e) => setTitle(e.target.value)}></textarea>

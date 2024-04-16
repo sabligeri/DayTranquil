@@ -1,8 +1,8 @@
 package com.codecool.men.service;
 
-import com.codecool.men.controller.components.NewNote;
-import com.codecool.men.controller.components.Note;
-import com.codecool.men.dao.NoteDaoImpl;
+import com.codecool.men.controller.dto.NewNoteDTO;
+import com.codecool.men.dao.model.Note;
+import com.codecool.men.dao.NoteDAOImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class NoteService {
 
-    private final NoteDaoImpl noteDao;
+    private final NoteDAOImpl noteDao;
 
-    public NoteService(NoteDaoImpl noteDao) {
+    public NoteService(NoteDAOImpl noteDao) {
         this.noteDao = noteDao;
     }
 
@@ -28,7 +28,7 @@ public class NoteService {
         return noteDao.deleteNote(userId, noteId);
     }
 
-    public Note addNote(int userId, NewNote newNote) {
-        return noteDao.addNote(userId, newNote);
+    public Note addNote(NewNoteDTO newNoteDTO) {
+        return noteDao.addNote(newNoteDTO);
     }
 }

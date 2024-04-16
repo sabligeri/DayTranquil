@@ -1,18 +1,14 @@
 import './App.css';
-import { NavLink, Outlet } from "react-router-dom";
+import {  Outlet } from "react-router-dom";
+import DevelopmentHeadBar from './DevelopmentHeadBar';
 
 function App() {
 
   return (
 
     <div className="root-layout">
-      <header id="header">
-        <nav id="navbar">
-          <NavLink to="/login">
-            Login
-          </NavLink>
-        </nav>
-      </header>
+      {/* endpoints to: login, register, main page, settings */}
+      <DevelopmentHeadBar/> 
       <main>
         <Outlet />
       </main>

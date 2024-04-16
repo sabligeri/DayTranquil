@@ -1,7 +1,7 @@
 package com.codecool.men.dao;
 
-import com.codecool.men.dtos.UserOperationsDTO;
-import com.codecool.men.model.User;
+import com.codecool.men.controller.dto.NewUserDTO;
+import com.codecool.men.dao.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
@@ -19,25 +19,27 @@ public class UserDAOImpl implements UserDAO{
 
   @Override
   public User getUserByName(String name) {
-    return users.stream().filter(user -> user.getUsername().equals(name)).toList().getFirst();
+    return users.stream()
+            .filter(user -> user.username().equals(name))
+            .toList()
+            .getFirst();
   }
 
   @Override
-  public void deleteUser(UUID userId) {
-    User toBeDeleted = users.stream().filter(user -> user.getUserId().equals(userId)).toList().getFirst();
-    users.remove(toBeDeleted);
+  public boolean deleteUser(UUID userId) {
+   return users.removeIf(user -> user.userId() == userId);
   }
 
   @Override
-  public void addUser(UserOperationsDTO userOperationsDTO) {
-    users.add(new User(userOperationsDTO.name(), userOperationsDTO.password()));
+  public void addUser(NewUserDTO newUserDTO) {
+    users.add(new User(UUID.randomUUID(), newUserDTO.name(), newUserDTO.password()));
   }
 
   private void createUsers(){
-    users.add(new User( "Alice", "password1"));
-    users.add(new User( "Bob", "password2"));
-    users.add(new User( "test", "test"));
-    users.add(new User( "test2", "test2"));
-    users.add(new User( "test1", "test1"));
+    users.add(new User( UUID.randomUUID(), "Alice", "password1"));
+    users.add(new User( UUID.randomUUID(),"Bob", "password2"));
+    users.add(new User( UUID.randomUUID(),"test", "test"));
+    users.add(new User( UUID.randomUUID(),"test2", "test2"));
+    users.add(new User( UUID.randomUUID(),"test1", "test1"));
   }
 }
