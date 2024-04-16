@@ -1,12 +1,12 @@
 package com.codecool.men.service;
 
-import com.codecool.men.UserDAO;
-import com.codecool.men.controller.components.NewUser;
-import com.codecool.men.controller.components.User;
+import com.codecool.men.dao.UserDAO;
+import com.codecool.men.dtos.UserIDDTO;
 import com.codecool.men.dtos.UserOperationsDTO;
-import org.springframework.http.ResponseEntity;
+import com.codecool.men.model.User;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,15 +18,18 @@ public class UserService {
     this.userDAO = userDAO;
   }
 
-  public ResponseEntity<?> loginUser(UserOperationsDTO userOperationsDTO) {
-      Optional<com.codecool.men.model.User> user =  userDAO.getUser(userOperationsDTO.name());
+  public UserIDDTO loginUser(UserOperationsDTO userOperationsDTO) {
+      Optional<User> user = Optional.ofNullable(userDAO.getUserByName(userOperationsDTO.name()));
+      boolean userNameCheck = false;
+      boolean passwordCheck = false;
       if(user.isEmpty()){
-        return ResponseEntity.badRequest().body("No such user exists!");
-      }else if(user.get().getPassword().equals(userOperationsDTO.password())){
-        return ResponseEntity.badRequest().body("Wrong password!");
-      }else {
-        return ResponseEntity.ok(user.get().getUserId());
+        return new UserIDDTO(null, true, false);
       }
+      if(Objects.equals(user.get().getPassword(), userOperationsDTO.password())){
+        passwordCheck = true;
+      }
+      return new UserIDDTO(user.get().getUserId(), passwordCheck, userNameCheck);
+
   }
 
   public User editUser(User user) {
@@ -37,8 +40,8 @@ public class UserService {
     userDAO.deleteUser(userId);
   }
 
-  public User addUser(NewUser newUser) {
-    throw new RuntimeException();
+  public void addUser(UserOperationsDTO newUser) {
+    userDAO.addUser(newUser);
   }
 
 }

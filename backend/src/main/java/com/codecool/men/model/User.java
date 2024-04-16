@@ -7,7 +7,7 @@ public class User {
   private String username;
   private String password;
 
-  public User(UUID userId, String username, String password) {
+  public User(String username, String password) {
     this.userId = UUID.randomUUID();
     this.username = username;
     this.password = password;
