@@ -17,7 +17,7 @@ public class UserController {
     this.userService = userService;
   }
 
-  @GetMapping("/login")
+  @PostMapping("/login")
   public UserIDDTO loginUser(@RequestBody UserOperationsDTO userOperationsDTO) {
     return userService.loginUser(userOperationsDTO);
   }
@@ -34,6 +34,7 @@ public class UserController {
 
   @PostMapping("/add")
   public void addUser(@RequestBody UserOperationsDTO newUser) {
+    System.out.println(newUser);
     userService.addUser(newUser);
   }
 
