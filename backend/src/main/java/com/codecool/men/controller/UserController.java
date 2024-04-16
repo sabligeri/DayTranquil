@@ -1,6 +1,6 @@
 package com.codecool.men.controller;
 
-import com.codecool.men.dtos.UserIDDTO;
+import com.codecool.men.dtos.UserLoginDataDTO;
 import com.codecool.men.dtos.UserOperationsDTO;
 import com.codecool.men.model.User;
 import com.codecool.men.service.UserService;
@@ -18,7 +18,7 @@ public class UserController {
   }
 
   @GetMapping("/login")
-  public UserIDDTO loginUser(@RequestBody UserOperationsDTO userOperationsDTO) {
+  public UserLoginDataDTO loginUser(@RequestBody UserOperationsDTO userOperationsDTO) {
     return userService.loginUser(userOperationsDTO);
   }
 

@@ -4,21 +4,27 @@ import com.codecool.men.dtos.UserOperationsDTO;
 import com.codecool.men.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
   private final Set<User> users;
 
   public UserDAOImpl() {
-    this.users = new HashSet<>();
+    this.users = Set.of(
+            new User("Alice", "password1"),
+            new User("test", "test"),
+            new User("Bob", "password2"));
   }
 
   @Override
   public User getUserByName(String name) {
-    return users.stream().filter(user -> user.getUsername().equals(name)).toList().getFirst();
+    if(users.stream().filter(user -> user.getUsername().equals(name)).count() > 0){
+      return users.stream().filter(user -> Objects.equals(user.getUsername(), name)).toList().getFirst();
+    }else{
+      return null;
+    }
+
   }
 
   @Override
