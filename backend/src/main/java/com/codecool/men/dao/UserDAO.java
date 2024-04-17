@@ -7,7 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserDAO {
-  Optional<User> getUserByName(String name);
-  boolean deleteUser(UUID userId);
+
+  User getUserByName(String name);
+  boolean deleteUser(int userId);
   void addUser(NewUserDTO newUserDTO);
 }

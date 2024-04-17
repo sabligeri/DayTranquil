@@ -23,12 +23,12 @@ public class UserService {
     Optional<User> user = userDAO.getUserByName(newUserDTO.name());
 
     if (user.isEmpty()) {
-      return new UserDTO(null, null, false);
+      return new UserDTO(0, null, false);
     }
-    if (Objects.equals(user.get().password(), newUserDTO.password())) {
-      return new UserDTO(user.get().userId(), true, true);
+    if (Objects.equals(user.get().getPassword(), newUserDTO.password())) {
+      return new UserDTO(user.get().getId(), true, true);
     } else {
-      return new UserDTO(user.get().userId(), false, true);
+      return new UserDTO(user.get().getId(), false, true);
     }
 
   }
@@ -37,7 +37,7 @@ public class UserService {
     throw new RuntimeException();
   }
 
-  public boolean deleteUser(UUID userId) {
+  public boolean deleteUser(int userId) {
     return userDAO.deleteUser(userId);
   }
 
