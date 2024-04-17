@@ -1,10 +1,9 @@
-/* #note-headbar {
-  /* background-color: aqua; */
-  display: flex;
-  justify-content: space-between;
-}
- */
 
+
+ #note-page{
+  background-color: #4b0794;
+  color: #b1dbf5;
+ }
 
 
 #note-headbar-spacer{
@@ -50,7 +49,55 @@
 }
 
 #note{
-  background-color: #00000030;
+  cursor: pointer;
+  background-color: #3c3939fc;
+  width: 18vw;
+  border-radius: 50px;
+  height: 20vw;  
+  position: relative;
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(9, 9, 9, 0.5), .125rem .125rem 1rem rgba(22, 22, 22, 0.5);
+  padding: 10px;
+}
+
+#note:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 2rem rgba(239, 71, 101, 0.5), .125rem .125rem 2rem rgba(255, 154, 90, 0.5);
+}
+
+.note-text {
+  max-height: 10vw;
+  overflow-y: auto;
+  padding: 10px 2vw;; 
+}
+
+#note>h3{
+  padding-left: 2vw;
+  padding-right: 2vw;
+  margin-bottom: 0;
+}
+
+#note>button{
+  position: absolute;  
+  bottom: 10px;        
+  left: 50%;           
+  transform: translateX(-50%); 
+  width: 50%;
+  border-radius: 12px;
+  background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 8px 0;
+}
+
+
+
+
+
+#note>button:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+#note>button:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }
 
 #note-list{

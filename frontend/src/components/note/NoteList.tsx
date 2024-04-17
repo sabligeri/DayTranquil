@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export default function NoteList() {
   const [notes, setNotes] = useState([]);
   const [userId, setUserId] = useState(4);
+  
 
   interface note {
     created: Date;
@@ -12,6 +13,16 @@ export default function NoteList() {
     userId: number;
   }
 
+  let myNote: note = {
+    created: new Date(),
+    id: 0,
+    text: "",
+    title: "",
+    userId: 0
+  }
+
+
+
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem("userId")!);
     if (id > 0) {
@@ -20,6 +31,8 @@ export default function NoteList() {
         try {
           const response = await fetch(`/api/note/${id}/all`);
           const data = await response.json();
+          data.splice(3, 0, myNote)
+          data.splice(4, 0, myNote)
           setNotes(data);
           console.log(data);
         } catch (error) {
@@ -51,7 +64,7 @@ export default function NoteList() {
         {notes.map((note: note) => (
           <div id="note" key={note.id}>
             <h3>{note.title}</h3>
-            <h3>{note.text}</h3>
+            <h3 className="note-text" >{note.text}</h3>
             <button onClick={() => handleDeleteNote(note.id)}>Delete</button>
           </div>
         ))}

@@ -5,7 +5,7 @@ import "./Note.css";
 
 export default function NotePage(){
   return(
-    <div>
+    <div id="note-page">
       <NoteHeadBar/>
       <NoteList/>
     </div>
