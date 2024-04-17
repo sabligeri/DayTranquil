@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
@@ -35,6 +34,29 @@ public class UserDAOImpl implements UserDAO{
   public void addUser(NewUserDTO newUserDTO) {
     users.add(new User(newUserDTO.name(), newUserDTO.password()));
   }
+
+  @Override
+  public String editUsername(int userId, String userName) {
+    Optional<User> editedUser = users.stream().filter(user -> user.getId() == userId).findFirst();
+    if(editedUser.isPresent()){
+    editedUser.get().setUsername(userName);
+      return editedUser.get().getUsername();
+    }else{
+      return "Nope";
+    }
+  }
+
+  @Override
+  public boolean editUserPassword(int userId, String passWord) {
+    Optional<User> editedUser = users.stream().filter(user -> user.getId() == userId).findFirst();
+    if(editedUser.isPresent()){
+      editedUser.get().setPassword(passWord);
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   private void createUsers(){
     users.add(new User( "Alice", "password1"));
