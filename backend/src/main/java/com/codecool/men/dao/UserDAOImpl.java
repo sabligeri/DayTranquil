@@ -19,27 +19,27 @@ public class UserDAOImpl implements UserDAO{
   @Override
   public User getUserByName(String name) {
     return users.stream()
-            .filter(user -> user.username().equals(name))
+            .filter(user -> user.getUsername().equals(name))
             .toList()
             .getFirst();
 
   }
 
   @Override
-  public boolean deleteUser(UUID userId) {
-   return users.removeIf(user -> user.userId() == userId);
+  public boolean deleteUser(int userId) {
+   return users.removeIf(user -> user.getId() == userId);
   }
 
   @Override
   public void addUser(NewUserDTO newUserDTO) {
-    users.add(new User(UUID.randomUUID(), newUserDTO.name(), newUserDTO.password()));
+    users.add(new User(newUserDTO.name(), newUserDTO.password()));
   }
 
   private void createUsers(){
-    users.add(new User( UUID.randomUUID(), "Alice", "password1"));
-    users.add(new User( UUID.randomUUID(),"Bob", "password2"));
-    users.add(new User( UUID.randomUUID(),"test", "test"));
-    users.add(new User( UUID.randomUUID(),"test2", "test2"));
-    users.add(new User( UUID.randomUUID(),"test1", "test1"));
+    users.add(new User( "Alice", "password1"));
+    users.add(new User( "Bob", "password2"));
+    users.add(new User("test", "test"));
+    users.add(new User("test2", "test2"));
+    users.add(new User("test1", "test1"));
   }
 }
