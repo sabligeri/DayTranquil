@@ -21,7 +21,7 @@ public class UserDAOImpl implements UserDAO{
   @Override
   public Optional<User> getUserByName(String name) {
     return  users.stream()
-            .filter(user -> user.username().equals(name))
+            .filter(user -> user.getUsername().equals(name))
             .findFirst();
 
   }
