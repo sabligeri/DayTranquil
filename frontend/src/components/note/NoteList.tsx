@@ -16,9 +16,9 @@ export default function NoteList() {
     const id = JSON.parse(localStorage.getItem("userId")!);
     if (id > 0) {
       setUserId(id);
-      const fetchNotes = async () => {
+      const fetchNotes = async (id:number) => {
         try {
-          const response = await fetch(`/api/note/${userId}/all`);
+          const response = await fetch(`/api/note/${id}/all`);
           const data = await response.json();
           setNotes(data);
           console.log(data);
@@ -27,7 +27,7 @@ export default function NoteList() {
         }
       };
   
-      fetchNotes();
+      fetchNotes(id);
     }
   }, []);
 
