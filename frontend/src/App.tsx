@@ -8,7 +8,7 @@ function App() {
 
     <div className="root-layout">
       {/* endpoints to: login, register, main page, settings */}
-      <DevelopmentHeadBar/> 
+     {/*  <DevelopmentHeadBar/>  */}
       <main>
         <Outlet />
       </main>

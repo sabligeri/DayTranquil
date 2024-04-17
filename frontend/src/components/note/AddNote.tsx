@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AddNote() {
+export default function AddNote({reFetchNotes}) {
   const [title, setTitle] = useState("")
   const [text, setText] = useState("")
 
@@ -26,6 +26,7 @@ export default function AddNote() {
       
       const responseData = await response.json();
       console.log(responseData);
+      reFetchNotes()
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -45,12 +46,15 @@ export default function AddNote() {
 
   return (
     <div id="add-note">
-      <div>
+      <div id="add-note-headbar">
         <h2>Add new note</h2>
-        <button onClick={() => handleAddNote()}>+</button>
+        <button onClick={() => handleAddNote()}>Save</button>
       </div>
-      <textarea onChange={(e) => setTitle(e.target.value)}></textarea>
-      <textarea onChange={(e) => setText(e.target.value)}></textarea>
+      <div id="add-note-textarea-container" >
+
+      <textarea id="add-note-textarea-title" onChange={(e) => setTitle(e.target.value)}>Your title...</textarea>
+      <textarea id="add-note-textarea-text" onChange={(e) => setText(e.target.value)}>Your text...</textarea>
+      </div>
     </div>
   );
 }
