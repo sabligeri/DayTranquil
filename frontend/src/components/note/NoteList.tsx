@@ -16,23 +16,21 @@ export default function NoteList() {
     const id = JSON.parse(localStorage.getItem("userId")!);
     if (id > 0) {
       setUserId(id);
+      const fetchNotes = async () => {
+        try {
+          const response = await fetch(`/api/note/${userId}/all`);
+          const data = await response.json();
+          setNotes(data);
+          console.log(data);
+        } catch (error) {
+          console.error("Failed to load notes:", error);
+        }
+      };
+  
+      fetchNotes();
     }
   }, []);
 
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const response = await fetch(`/api/note/${userId}/all`);
-        const data = await response.json();
-        setNotes(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Failed to load notes:", error);
-      }
-    };
-
-    fetchNotes();
-  }, [userId]);
 
   async function handleDeleteNote(noteId: number) {
     const response = await fetch(`/api/note/${userId}/delete/${noteId}`, {
