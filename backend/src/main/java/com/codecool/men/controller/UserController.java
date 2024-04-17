@@ -30,7 +30,7 @@ public class UserController {
   }
 
   @DeleteMapping("/delete/{userId}")
-  public boolean delete(@PathVariable UUID userId) {
+  public boolean delete(@PathVariable int userId) {
     return userService.deleteUser(userId);
   }
 
