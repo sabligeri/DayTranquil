@@ -20,7 +20,7 @@ public class UserService {
   }
 
   public UserDTO loginUser(NewUserDTO newUserDTO) {
-    Optional<User> user = Optional.ofNullable(userDAO.getUserByName(newUserDTO.name()));
+    Optional<User> user = userDAO.getUserByName(newUserDTO.name());
 
     if (user.isEmpty()) {
       return new UserDTO(0, null, false);

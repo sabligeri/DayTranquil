@@ -4,7 +4,10 @@ import com.codecool.men.controller.dto.NewUserDTO;
 import com.codecool.men.dao.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
@@ -13,15 +16,13 @@ public class UserDAOImpl implements UserDAO{
   public UserDAOImpl() {
     this.users = new HashSet<>();
     createUsers();
-
   }
 
   @Override
-  public User getUserByName(String name) {
-    return users.stream()
-            .filter(user -> user.getUsername().equals(name))
-            .toList()
-            .getFirst();
+  public Optional<User> getUserByName(String name) {
+    return  users.stream()
+            .filter(user -> user.username().equals(name))
+            .findFirst();
 
   }
 
