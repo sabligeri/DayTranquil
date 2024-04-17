@@ -5,6 +5,7 @@ import com.codecool.men.dao.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,11 +19,10 @@ public class UserDAOImpl implements UserDAO{
   }
 
   @Override
-  public User getUserByName(String name) {
-    return users.stream()
+  public Optional<User> getUserByName(String name) {
+    return  users.stream()
             .filter(user -> user.username().equals(name))
-            .toList()
-            .getFirst();
+            .findFirst();
   }
 
   @Override
