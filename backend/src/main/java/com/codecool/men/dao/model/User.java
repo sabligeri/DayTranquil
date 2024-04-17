@@ -6,12 +6,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class User {
     private final int id;
     private static AtomicInteger count = new AtomicInteger(0);
-    private final String username;
-    private final String password;
+    private String username;
+    private String password;
 
 
     public User(String username, String password) {
         this.id = count.incrementAndGet();
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(int id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }
@@ -26,6 +32,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

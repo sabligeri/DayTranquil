@@ -2,12 +2,11 @@ package com.codecool.men.controller;
 
 import com.codecool.men.controller.dto.UserDTO;
 import com.codecool.men.controller.dto.NewUserDTO;
-import com.codecool.men.dao.model.User;
+import com.codecool.men.controller.dto.UserNameDTO;
 
+import com.codecool.men.controller.dto.UserPasswordDTO;
 import com.codecool.men.service.UserService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
@@ -24,9 +23,13 @@ public class UserController {
     return userService.loginUser(newUserDTO);
   }
 
-  @GetMapping("/edit/{userId}")
-  public User editUser(@RequestBody User user) {
-    throw new RuntimeException();
+  @PatchMapping("/edit/username/{userId}")
+  public UserNameDTO editUsername(@RequestBody UserNameDTO username, @PathVariable int userId) {
+    return userService.editUsername(username, userId);
+  }
+  @PatchMapping("/edit/password/{userId}")
+  public boolean editUserPassword(@RequestBody UserPasswordDTO password, @PathVariable int userId) {
+    return userService.editUserPassword(password, userId);
   }
 
   @DeleteMapping("/delete/{userId}")

@@ -1,5 +1,7 @@
 package com.codecool.men.service;
 
+import com.codecool.men.controller.dto.UserNameDTO;
+import com.codecool.men.controller.dto.UserPasswordDTO;
 import com.codecool.men.dao.UserDAO;
 import com.codecool.men.controller.dto.UserDTO;
 import com.codecool.men.controller.dto.NewUserDTO;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -33,8 +34,11 @@ public class UserService {
 
   }
 
-  public User editUser(User user) {
-    throw new RuntimeException();
+  public UserNameDTO editUsername(UserNameDTO changes, int userId ) {
+    return new UserNameDTO(userDAO.editUsername(userId, changes.username()));
+  }
+  public boolean editUserPassword(UserPasswordDTO changes, int userId){
+    return userDAO.editUserPassword(userId, changes.password());
   }
 
   public boolean deleteUser(int userId) {
