@@ -1,6 +1,7 @@
 package com.codecool.men.dao;
 
 import com.codecool.men.controller.dto.NewNoteDTO;
+import com.codecool.men.controller.exceptions.NoteNotFoundException;
 import com.codecool.men.dao.model.Note;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ public class NoteDAOImpl implements NoteDAO {
     return notes.stream()
             .filter(note -> note.userId() == userId && note.id() == noteId)
             .findFirst()
-            .orElse(null);
+            .orElseThrow(NoteNotFoundException::new);
   }
 
   public boolean deleteNote(int userId, int noteId) {

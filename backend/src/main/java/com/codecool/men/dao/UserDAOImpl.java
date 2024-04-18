@@ -1,6 +1,7 @@
 package com.codecool.men.dao;
 
 import com.codecool.men.controller.dto.NewUserDTO;
+import com.codecool.men.controller.exceptions.WrongUsernameException;
 import com.codecool.men.dao.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -19,10 +20,10 @@ public class UserDAOImpl implements UserDAO{
   }
 
   @Override
-  public Optional<User> getUserByName(String name) {
+  public User getUserByName(String name) {
     return  users.stream()
             .filter(user -> user.getUsername().equals(name))
-            .findFirst();
+            .findFirst().orElseThrow(WrongUsernameException::new);
 
   }
 

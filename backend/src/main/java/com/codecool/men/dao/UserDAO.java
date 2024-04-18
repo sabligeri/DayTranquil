@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserDAO {
 
-  Optional<User> getUserByName(String name);
+  User getUserByName(String name);
   boolean deleteUser(int userId);
   boolean addUser(NewUserDTO newUserDTO);
   String editUsername(int userId, String userName);
