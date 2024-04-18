@@ -1,3 +1,4 @@
+
 body{
   position: relative;
   margin: 0;
@@ -13,7 +14,7 @@ body{
   min-height: 100vh;
 }
 
-#development-header{
+#development-header {
   background-color: rgba(0, 0, 0, 0.59);
   position: absolute;
   top: 0;
@@ -23,11 +24,9 @@ body{
   z-index: 100;
 }
 
-#development-header > a{
+#development-header > a {
   color: whitesmoke;
 }
-
-
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
