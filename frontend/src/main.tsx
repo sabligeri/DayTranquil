@@ -4,7 +4,6 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './components/Login.js';
 import App from './App.js';
-import NoteList from './components/note/NoteList.js';
 import Settings from './components/Settings.js';
 import NotePage from './components/note/NotePage.js';
 
