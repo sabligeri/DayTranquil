@@ -16,7 +16,7 @@ export default function NoteList({del, notes}:NoteListProps) {
     <div id="note-list">
       {/* <h2>Your Notes</h2> */}
       <div id="note-grid">
-        {notes.map((note, index: number) => (
+        {notes && notes.map((note, index: number) => (
           <div id="note" key={index}>
             <h3>{note.title}</h3>
             <h3 className="note-text">{note.text}</h3>

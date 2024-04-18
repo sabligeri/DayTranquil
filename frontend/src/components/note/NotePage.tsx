@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function NotePage() {
   const [notes, setNotes] = useState([]);
-  const [userId, setUserId] = useState(4);
+  const [userId, setUserId] = useState(0);
 
   interface note {
     created: Date;

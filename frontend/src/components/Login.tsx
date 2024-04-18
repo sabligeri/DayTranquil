@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 async function addUser(name: string, password: string) {
-  console.log(name);
-  console.log(password);
+  console.log("Add user: ");
+  console.log("name: " + name, "pass: " + password);
+
   const userToAdd = {
     name,
     password,
@@ -28,8 +29,10 @@ async function addUser(name: string, password: string) {
 }
 
 export default function Login() {
-  const [name, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
+  const [userNamePlaceholder, setUserNamePlaceholder] = useState("Username");
   const [password, setUserPassword] = useState("");
+  const [passwordPlaceholder, setPasswordPlaceholder] = useState("Passworld");
   const [userId, setUserId] = useState(-1);
 
   const navigate = useNavigate();
@@ -44,19 +47,21 @@ export default function Login() {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await addUser(name, password);
+    await addUser(userName, password);
 
     setUsername("");
     setUserPassword("");
   };
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const user = {
-      name,
+      name: userName,
       password,
     };
+
+    console.log(user.name, user.password);
 
     try {
       const response = await fetch("/api/user/login", {
@@ -66,15 +71,36 @@ export default function Login() {
           "Content-Type": "application/json",
         },
       });
-      console.log("1." + response);
+      console.log("Login respons: " + response);
 
       if (response.ok) {
         const responseUser = await response.json();
-        localStorage.setItem("userId", JSON.stringify(responseUser.userID));
-        setUserId(responseUser.userID);
-        navigate("/main");
+        const responseUserId = responseUser.userID;
+        const responsePassword = responseUser.password;
+        const responseUserName = responseUser.userName;
+
+        console.log("userId: " + responseUser.userID);
+        console.log("user pass: " + responseUser.password);
+        console.log("user name: " + responseUser.userName);
+
+        if (!responseUserName) {
+          //wrong user name
+          setUsername("");
+          setUserNamePlaceholder("Wrong username try again...");
+        }
+        if (!responsePassword) {
+          //wrong pass
+          setUserPassword("");
+          setPasswordPlaceholder("Wrong password try again...");
+        }
+        if (responseUserName && responsePassword) {
+          //login
+          localStorage.setItem("userId", JSON.stringify(responseUserId));
+          setUserId(responseUser.userID);
+          navigate("/main");
+        }
       } else {
-        console.error("Failed to add the user");
+        console.error("Failed to Login");
       }
     } catch (error) {
       console.error(error);
@@ -88,66 +114,70 @@ export default function Login() {
   }
 
   return userId > 0 ? (
-    <form className="login-layout" onSubmit={(e) => handleLogout(e)}>
-      <h2>You are logged in! </h2>
-      <button type="submit" className="login-page-btn">
-        Log out
-      </button>
-    </form>
+    <div id="login-root">
+      <form className="login-layout" onSubmit={(e) => handleLogout(e)}>
+        <h2>You are logged in! </h2>
+        <button type="submit" className="login-page-btn">
+          Log out
+        </button>
+      </form>
+    </div>
   ) : (
     <div id="login-root">
-    <div className="main">
-      <input type="checkbox" id="chk" aria-hidden="true" />
-      <div className="signup">
-        <form onSubmit={(e) => handleRegister(e)}>
-          <label htmlFor="chk" aria-hidden="true">
-            Sign up
-          </label>
-          <input
-            type="text"
-            name="userName"
-            onChange={(e) => setUsername(e.target.value)}
-            value={name}
-            placeholder="Username"
-            required
+      <div className="main">
+        <input type="checkbox" id="chk" aria-hidden="true" />
+        <div className="signup">
+          <form onSubmit={(e) => handleRegister(e)}>
+            <label htmlFor="chk" aria-hidden="true">
+              Sign up
+            </label>
+            <input
+              type="text"
+              name="userName"
+              onChange={(e) => setUsername(e.target.value)}
+              value={userName}
+              placeholder="Username"
+              required
             />
-          <input
-            type="password"
-            onChange={(e) => setUserPassword(e.target.value)}
-            value={password}
-            placeholder="Password"
+            <input
+              type="password"
+              onChange={(e) => setUserPassword(e.target.value)}
+              value={password}
+              placeholder="Password"
+              required
             />
-          <button type="submit" className="login-page-btn">
-            Sign up
-          </button>
-        </form>
-      </div>
-      <div className="login">
-        <form onSubmit={(e) => handleSubmit(e)}  >
-          <label htmlFor="chk" aria-hidden="true">
-            Login
-          </label>
-          <input
-            type="text"
-            name="userName"
-            onChange={(e) => setUsername(e.target.value)}
-            value={name}
-            placeholder="Username"
-            required
+            <button type="submit" className="login-page-btn">
+              Sign up
+            </button>
+          </form>
+        </div>
+        <div className="login">
+          <form onSubmit={(e) => handleLogin(e)}>
+            <label htmlFor="chk" aria-hidden="true">
+              Login
+            </label>
+            <input
+              type="text"
+              name="userName"
+              onChange={(e) => setUsername(e.target.value)}
+              value={userName}
+              placeholder={userNamePlaceholder}
+              required
             />
-          <input
-            type="password"
-            onChange={(e) => setUserPassword(e.target.value)}
-            value={password}
-            placeholder="Password"
+            <input
+              type="password"
+              onChange={(e) => setUserPassword(e.target.value)}
+              value={password}
+              placeholder={passwordPlaceholder}
+              required
             />
-          <button type="submit" className="login-page-btn">
-            Log in
-          </button>
-        </form>
+            <button type="submit" className="login-page-btn">
+              Log in
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-</div>
 
     //   <div class="main">
     // 	<input type="checkbox" id="chk" aria-hidden="true">
