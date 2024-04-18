@@ -5,6 +5,7 @@ import com.codecool.men.dao.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,17 +32,26 @@ public class UserDAOImpl implements UserDAO{
   }
 
   @Override
-  public void addUser(NewUserDTO newUserDTO) {
-    users.add(new User(newUserDTO.name(), newUserDTO.password()));
+  public boolean addUser(NewUserDTO newUserDTO) {
+    if(users.stream().noneMatch(user -> Objects.equals(user.getUsername(), newUserDTO.name()))){
+      users.add(new User(newUserDTO.name(), newUserDTO.password()));
+      return true;
+    }else{
+      return false;
+    }
   }
 
   @Override
   public String editUsername(int userId, String userName) {
-    Optional<User> editedUser = users.stream().filter(user -> user.getId() == userId).findFirst();
-    if(editedUser.isPresent()){
-    editedUser.get().setUsername(userName);
-      return editedUser.get().getUsername();
-    }else{
+    if(users.stream().noneMatch(user -> Objects.equals(user.getUsername(), userName))){
+      Optional<User> editedUser = users.stream().filter(user -> user.getId() == userId).findFirst();
+      if(editedUser.isPresent()){
+        editedUser.get().setUsername(userName);
+        return editedUser.get().getUsername();
+      }else{
+        return "Nope";
+      }
+    }else {
       return "Nope";
     }
   }

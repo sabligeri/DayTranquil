@@ -9,7 +9,7 @@ public interface UserDAO {
 
   Optional<User> getUserByName(String name);
   boolean deleteUser(int userId);
-  void addUser(NewUserDTO newUserDTO);
+  boolean addUser(NewUserDTO newUserDTO);
   String editUsername(int userId, String userName);
 
   boolean editUserPassword(int userId,String passWord);

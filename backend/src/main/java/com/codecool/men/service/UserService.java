@@ -45,8 +45,8 @@ public class UserService {
     return userDAO.deleteUser(userId);
   }
 
-  public void addUser(NewUserDTO newUser) {
-    userDAO.addUser(newUser);
+  public boolean addUser(NewUserDTO newUser) {
+    return userDAO.addUser(newUser);
   }
 
 }
