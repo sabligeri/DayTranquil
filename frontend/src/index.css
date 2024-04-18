@@ -6,7 +6,8 @@ body{
   background-color: rgb(75, 75, 75);
   color: whitesmoke;
 }
-.root-layout {
+
+#login-root {
   display: flex;
   flex-direction: column;
   align-items: center;

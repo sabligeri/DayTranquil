@@ -3,9 +3,7 @@ import NoteList from "./NoteList";
 import "./Note.css";
 import { useEffect, useState } from "react";
 
-
-export default function NotePage(){
-
+export default function NotePage() {
   const [notes, setNotes] = useState([]);
   const [userId, setUserId] = useState(4);
 
@@ -33,7 +31,7 @@ export default function NotePage(){
     }
   }, []);
 
-  async function fetchNotes() {
+  async function fetchNotes(): Promise<void> {
     try {
       const response = await fetch(`/api/note/${userId}/all`);
       const data = await response.json();
@@ -42,7 +40,6 @@ export default function NotePage(){
         data.splice(3, 0, emptyNote);
       }
       setNotes(data);
-      
     } catch (error) {
       console.error("Failed to load notes:", error);
     }
@@ -60,10 +57,10 @@ export default function NotePage(){
     }
   }
 
-  return(
+  return (
     <div id="note-page">
-      <NoteHeadBar reFetchNotes={fetchNotes}/>
-      <NoteList del={handleDeleteNote} notes={notes}/>
+      <NoteHeadBar reFetchNotes={fetchNotes} />
+      <NoteList del={handleDeleteNote} notes={notes} />
     </div>
-  )
+  );
 }

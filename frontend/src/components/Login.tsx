@@ -10,8 +10,6 @@ async function addUser(name: string, password: string) {
     password,
   };
 
-  
-
   try {
     const addUserResponse = await fetch("/api/user/add", {
       method: "POST",
@@ -97,6 +95,7 @@ export default function Login() {
       </button>
     </form>
   ) : (
+    <div id="login-root">
     <div className="main">
       <input type="checkbox" id="chk" aria-hidden="true" />
       <div className="signup">
@@ -111,13 +110,13 @@ export default function Login() {
             value={name}
             placeholder="Username"
             required
-          />
+            />
           <input
             type="password"
             onChange={(e) => setUserPassword(e.target.value)}
             value={password}
             placeholder="Password"
-          />
+            />
           <button type="submit" className="login-page-btn">
             Sign up
           </button>
@@ -135,19 +134,20 @@ export default function Login() {
             value={name}
             placeholder="Username"
             required
-          />
+            />
           <input
             type="password"
             onChange={(e) => setUserPassword(e.target.value)}
             value={password}
             placeholder="Password"
-          />
+            />
           <button type="submit" className="login-page-btn">
             Log in
           </button>
         </form>
       </div>
     </div>
+</div>
 
     //   <div class="main">
     // 	<input type="checkbox" id="chk" aria-hidden="true">
