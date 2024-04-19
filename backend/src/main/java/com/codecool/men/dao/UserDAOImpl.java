@@ -1,6 +1,9 @@
 package com.codecool.men.dao;
 
 import com.codecool.men.controller.dto.NewUserDTO;
+import com.codecool.men.controller.exceptions.AlreadyInUseUsername;
+import com.codecool.men.controller.exceptions.UserNotFoundException;
+import com.codecool.men.controller.exceptions.WrongUsernameException;
 import com.codecool.men.dao.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -19,10 +22,10 @@ public class UserDAOImpl implements UserDAO{
   }
 
   @Override
-  public Optional<User> getUserByName(String name) {
+  public User getUserByName(String name) {
     return  users.stream()
             .filter(user -> user.getUsername().equals(name))
-            .findFirst();
+            .findFirst().orElseThrow(WrongUsernameException::new);
 
   }
 
@@ -40,19 +43,16 @@ public class UserDAOImpl implements UserDAO{
       return false;
     }
   }
-
   @Override
   public String editUsername(int userId, String userName) {
     if(users.stream().noneMatch(user -> Objects.equals(user.getUsername(), userName))){
-      Optional<User> editedUser = users.stream().filter(user -> user.getId() == userId).findFirst();
-      if(editedUser.isPresent()){
-        editedUser.get().setUsername(userName);
-        return editedUser.get().getUsername();
-      }else{
-        return "Nope";
-      }
+      User editedUser = users.stream().filter(user -> user.getId() == userId).findFirst().orElseThrow(UserNotFoundException::new);
+
+        editedUser.setUsername(userName);
+        return editedUser.getUsername();
+
     }else {
-      return "Nope";
+      throw new AlreadyInUseUsername();
     }
   }
 

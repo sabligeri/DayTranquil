@@ -2,5 +2,5 @@ package com.codecool.men.controller.dto;
 
 import java.util.UUID;
 //Its meant to be Capital DO NOT touch!
-public record UserDTO(int userID, Boolean password, boolean userName){
+public record UserDTO(int userID){
 }

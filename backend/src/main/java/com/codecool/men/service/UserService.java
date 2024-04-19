@@ -2,6 +2,8 @@ package com.codecool.men.service;
 
 import com.codecool.men.controller.dto.UserNameDTO;
 import com.codecool.men.controller.dto.UserPasswordDTO;
+import com.codecool.men.controller.exceptions.WrongPasswordException;
+import com.codecool.men.controller.exceptions.WrongUsernameException;
 import com.codecool.men.dao.UserDAO;
 import com.codecool.men.controller.dto.UserDTO;
 import com.codecool.men.controller.dto.NewUserDTO;
@@ -21,15 +23,12 @@ public class UserService {
   }
 
   public UserDTO loginUser(NewUserDTO newUserDTO) {
-    Optional<User> user = userDAO.getUserByName(newUserDTO.name());
+    User user = userDAO.getUserByName(newUserDTO.name());
 
-    if (user.isEmpty()) {
-      return new UserDTO(0, null, false);
-    }
-    if (Objects.equals(user.get().getPassword(), newUserDTO.password())) {
-      return new UserDTO(user.get().getId(), true, true);
+    if (Objects.equals(user.getPassword(), newUserDTO.password())) {
+      return new UserDTO(user.getId());
     } else {
-      return new UserDTO(user.get().getId(), false, true);
+      throw new WrongPasswordException();
     }
 
   }

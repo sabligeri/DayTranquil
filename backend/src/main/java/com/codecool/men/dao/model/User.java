@@ -1,5 +1,6 @@
 package com.codecool.men.dao.model;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -41,6 +42,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isSameName(String incomingName){
+        return Objects.equals(incomingName, this.username);
+    }
+    public boolean isSameId(int id){
+        return id == this.id;
+    }
+    //TODO
+    // id.equals
 }
 
 //(UUID userId, String username, String password)
