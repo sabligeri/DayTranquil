@@ -1,6 +1,7 @@
 package com.codecool.men.controller;
 
-import com.codecool.men.controller.dto.NewNoteDTO;
+import com.codecool.men.controller.dto.note.NewNoteDTO;
+import com.codecool.men.controller.dto.note.NoteDTO;
 import com.codecool.men.repository.model.Note;
 import com.codecool.men.service.NoteService;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ public class NoteController {
     }
 
     @GetMapping("/all")
-    public List<Note> getAllNotes(@PathVariable int userId) {
+    public List<NoteDTO> getAllNotes(@PathVariable int userId) {
         return noteService.getAllNotes(userId);
     }
 
     @GetMapping("/{noteId}")
-    public Note getNote(@PathVariable int userId, @PathVariable int noteId) {
+    public NoteDTO getNote(@PathVariable int userId, @PathVariable int noteId) {
         return noteService.getNote(userId, noteId);
     }
 
@@ -32,7 +33,7 @@ public class NoteController {
     }
 
     @PostMapping("/add")
-    public Note addNote( @RequestBody NewNoteDTO newNoteDTO) {
+    public NoteDTO addNote( @RequestBody NewNoteDTO newNoteDTO) {
         return noteService.addNote(newNoteDTO);
     }
 
