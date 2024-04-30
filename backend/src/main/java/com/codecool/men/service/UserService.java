@@ -1,17 +1,14 @@
 package com.codecool.men.service;
 
 import com.codecool.men.controller.dto.*;
+import com.codecool.men.controller.exceptions.WrongUsernameException;
 import com.codecool.men.repository.UserRepository;
 import com.codecool.men.repository.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.codecool.men.controller.dto.UserNameDTO;
 import com.codecool.men.controller.dto.UserPasswordDTO;
-import com.codecool.men.controller.exceptions.WrongPasswordException;
-import com.codecool.men.controller.exceptions.WrongUsernameException;
-import com.codecool.men.dao.UserDAO;
 import com.codecool.men.controller.dto.UserDTO;
 import com.codecool.men.controller.dto.NewUserDTO;
-import com.codecool.men.dao.model.User;
 
 import org.springframework.stereotype.Service;
 
@@ -30,10 +27,10 @@ public class UserService {
     public UserDTO loginUser(NewUserDTO newUserDTO) {
         Optional<User> user = userRepository.findByUsername(newUserDTO.name());
         if (user.isEmpty()) {
-            return null;
+            throw new WrongUsernameException();
         }
         boolean passwordMatch = user.get().getPassword().equals(newUserDTO.password());
-        return new UserDTO(user.get().getId().intValue(), passwordMatch, true);
+        return new UserDTO(user.get().getId().intValue());
     }
 
     public UserNameDTO editUsername(UserNameDTO usernameDTO, int userId) {
