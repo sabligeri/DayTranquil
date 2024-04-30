@@ -75,15 +75,20 @@ export default function Login() {
 
       if (response.ok) {
         const responseUser = await response.json();
+       // console.log(responseUser);
+        
         const responseUserId = responseUser.userID;
-        const responsePassword = responseUser.password;
-        const responseUserName = responseUser.userName;
+       // const responsePassword = responseUser.password;
+       // const responseUserName = responseUser.userName;
 
         console.log("userId: " + responseUser.userID);
         console.log("user pass: " + responseUser.password);
         console.log("user name: " + responseUser.userName);
 
-        if (!responseUserName) {
+        localStorage.setItem("userId", JSON.stringify(responseUserId));
+        setUserId(responseUser.userID);
+        navigate("/main");
+    /*     if (!responseUserName) {
           //wrong user name
           setUsername("");
           setUserNamePlaceholder("Wrong username try again...");
@@ -101,6 +106,7 @@ export default function Login() {
         }
       } else {
         console.error("Failed to Login");
+        */
       }
     } catch (error) {
       console.error(error);
