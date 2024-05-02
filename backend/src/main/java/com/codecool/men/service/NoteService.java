@@ -32,7 +32,7 @@ public class NoteService {
   public NoteDTO getNote(long userId, long noteId) {
     Note note = noteRepository.findByIdAndUserId(noteId, userId);
     if (note == null) {
-      throw new OperationFailedException();
+      throw new OperationFailedException("Note not found!");
     }
     return new NoteDTO(note.getId(), note.getTitle(), note.getText(), note.isFavorite());
   }
@@ -43,7 +43,7 @@ public class NoteService {
       noteRepository.delete(note);
       return true;
     }
-    throw new OperationFailedException();
+    throw new OperationFailedException("Note not found!");
   }
 
   public boolean addNote(NewNoteDTO newNoteDTO) {

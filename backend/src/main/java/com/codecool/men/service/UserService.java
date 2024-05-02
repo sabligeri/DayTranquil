@@ -41,7 +41,7 @@ public class UserService {
       userRepository.save(user.get());
       return new UserNameDTO(user.get().getUsername());
     }
-    throw new OperationFailedException();
+    throw new OperationFailedException("User not found!");
   }
 
   public boolean editUserPassword(UserPasswordDTO passwordDTO, int userId) {
@@ -51,7 +51,7 @@ public class UserService {
       userRepository.save(user.get());
       return true;
     }
-    throw new OperationFailedException();
+    throw new OperationFailedException("User not found!");
   }
 
   public boolean deleteUser(int userId) {
@@ -60,19 +60,19 @@ public class UserService {
       userRepository.delete(user.get());
       return true;
     }
-    throw new OperationFailedException();
+    throw new OperationFailedException("User not found!");
   }
 
   public boolean addUser(NewUserDTO newUserDTO) {
     Optional<User> user = userRepository.findByUsername(newUserDTO.name());
-    if (user.isPresent()) {
+    if (user.isEmpty()) {
       User newUser = new User();
       newUser.setUsername(newUserDTO.name());
       newUser.setPassword(newUserDTO.password());
       userRepository.save(newUser);
       return true;
     } else {
-      throw new OperationFailedException();
+      throw new OperationFailedException("Username already in use!");
     }
 
   }
