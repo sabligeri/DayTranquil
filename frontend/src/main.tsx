@@ -11,12 +11,12 @@ import NotePage from './components/note/NotePage.js';
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Login/>,
+  },
+  {
+    path: "/",
     element: <App/>,
     children: [
-      {
-        path: "/login",
-        element: <Login />
-      },
       {
         path: "/main",
         element: <NotePage/>
