@@ -11,13 +11,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/note/{userId}")
 public class NoteController {
-    private NoteService noteService;
+    private final NoteService noteService;
 
     public NoteController(NoteService noteService) {
         this.noteService = noteService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<NoteDTO> getAllNotes(@PathVariable int userId) {
         return noteService.getAllNotes(userId);
     }
@@ -27,13 +27,17 @@ public class NoteController {
         return noteService.getNote(userId, noteId);
     }
 
-    @DeleteMapping("/delete/{noteId}")
-    public boolean deleteNote(@PathVariable int userId, @PathVariable int noteId) {
+    @DeleteMapping("/{noteId}")
+    public boolean deleteNote(@PathVariable long userId, @PathVariable int noteId) {
         return noteService.deleteNote(userId, noteId);
     }
+    @PutMapping("/{noteId}")
+    public boolean updateNote(@PathVariable long userId, @PathVariable int noteId, @RequestBody NoteDTO noteDTO){
+        return noteService.updateNote(userId,noteId,noteDTO);
+    }
 
-    @PostMapping("/add")
-    public NoteDTO addNote( @RequestBody NewNoteDTO newNoteDTO) {
+    @PostMapping
+    public boolean addNote( @RequestBody NewNoteDTO newNoteDTO) {
         return noteService.addNote(newNoteDTO);
     }
 
