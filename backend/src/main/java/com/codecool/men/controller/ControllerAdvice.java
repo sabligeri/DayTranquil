@@ -1,9 +1,9 @@
 package com.codecool.men.controller;
 
-import com.codecool.men.controller.exceptions.AlreadyInUseUsername;
+import com.codecool.men.controller.exceptions.LoginFailedException;
 import com.codecool.men.controller.exceptions.NoteNotFoundException;
-import com.codecool.men.controller.exceptions.WrongPasswordException;
-import com.codecool.men.controller.exceptions.WrongUsernameException;
+import com.codecool.men.controller.exceptions.OperationFailedException;
+import com.codecool.men.controller.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ControllerAdvice {
   @ResponseBody
   @ExceptionHandler({
-          WrongUsernameException.class,
-          WrongPasswordException.class,
-          AlreadyInUseUsername.class,
+          LoginFailedException.class,
+          OperationFailedException.class,
+          UserNotFoundException.class,
           NoteNotFoundException.class
   })
   @ResponseStatus(HttpStatus.BAD_REQUEST)

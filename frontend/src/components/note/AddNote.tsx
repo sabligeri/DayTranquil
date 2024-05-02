@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AddNote({reFetchNotes}) {
   const [title, setTitle] = useState("")
   const [text, setText] = useState("")
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   interface NewNote {
     title: string;
     text: string;
     userId: string;
   }
+
+useEffect(() => {
+  console.log(currentDate);
+  
+  //setCurrentDate(new Date());
+})
 
   async function addNote(newNote: NewNote) {
     try {
@@ -51,7 +58,7 @@ export default function AddNote({reFetchNotes}) {
         <button onClick={() => handleAddNote()}>Save</button>
       </div>
       <div id="add-note-textarea-container" >
-
+      <input id="add-note-set-date" type="date"  /* value={new Date().toISOString().split('T')[0]} *//>
       <textarea id="add-note-textarea-title" onChange={(e) => setTitle(e.target.value)}>Your title...</textarea>
       <textarea id="add-note-textarea-text" onChange={(e) => setText(e.target.value)}>Your text...</textarea>
       </div>
