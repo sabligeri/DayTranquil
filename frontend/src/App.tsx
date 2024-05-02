@@ -4,16 +4,11 @@ import DevelopmentHeadBar from './DevelopmentHeadBar';
 import { useEffect } from 'react';
 
 function App() {
-  const nav = useNavigate()
+   const nav = useNavigate()
 
-  useEffect(() => {
-    nav("/login")
-  })
 
   return (
-
     <div className="root-layout">
-      {/* endpoints to: login, register, main page, settings */}
       <DevelopmentHeadBar />
       <main>
         <Outlet />
