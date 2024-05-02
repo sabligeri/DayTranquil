@@ -1,10 +1,10 @@
 package com.codecool.men.controller;
 
-import com.codecool.men.controller.dto.UserDTO;
-import com.codecool.men.controller.dto.NewUserDTO;
-import com.codecool.men.controller.dto.UserNameDTO;
+import com.codecool.men.controller.dto.user.UserDTO;
+import com.codecool.men.controller.dto.user.NewUserDTO;
+import com.codecool.men.controller.dto.user.UserNameDTO;
 
-import com.codecool.men.controller.dto.UserPasswordDTO;
+import com.codecool.men.controller.dto.user.UserPasswordDTO;
 import com.codecool.men.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
