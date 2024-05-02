@@ -11,7 +11,6 @@ import com.codecool.men.repository.model.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class NoteService {
 
   public List<NoteDTO> getAllNotes(long userId) {
     List<Note> notes = noteRepository.findByUserId(userId);
-    return notes.stream().map(note -> new NoteDTO(note.getTitle(), note.getText())).collect(Collectors.toList());
+    return notes.stream().map(note -> new NoteDTO(note.getId(), note.getTitle(), note.getText(), note.isFavorite())).collect(Collectors.toList());
   }
 
   public NoteDTO getNote(long userId, long noteId) {
@@ -35,7 +34,7 @@ public class NoteService {
     if (note == null) {
       throw new OperationFailedException();
     }
-    return new NoteDTO(note.getTitle(), note.getText());
+    return new NoteDTO(note.getId(), note.getTitle(), note.getText(), note.isFavorite());
   }
 
   public boolean deleteNote(long userId, long noteId) {
@@ -47,20 +46,35 @@ public class NoteService {
     throw new OperationFailedException();
   }
 
-  public NoteDTO addNote(NewNoteDTO newNoteDTO) {
-    User user = userRepository
-            .findById(newNoteDTO.userId())
-            .orElseThrow(UserNotFoundException::new);
-    createNote(newNoteDTO, user);
-    return new NoteDTO(newNoteDTO.title(), newNoteDTO.text());
+  public boolean addNote(NewNoteDTO newNoteDTO) {
+    User user = getUser(newNoteDTO.userId());
+    Note note = new Note();
+    createNote(newNoteDTO, user, note);
+    return true;
   }
 
-  private void createNote(NewNoteDTO newNoteDTO, User user) {
-    Note note = new Note();
+  private User getUser(long id) {
+    return userRepository
+            .findById(id)
+            .orElseThrow(UserNotFoundException::new);
+  }
+
+  private void createNote(NewNoteDTO newNoteDTO, User user, Note note) {
     note.setTitle(newNoteDTO.title());
     note.setText(newNoteDTO.text());
     note.setDate(LocalDate.now());
     note.setUser(user);
+    note.setFavorite(false);
     noteRepository.save(note);
+  }
+
+  public boolean updateNote(long userId, long noteId, NoteDTO noteDTO){
+    User user = getUser(userId);
+    Note noteToUpdate = user.getNotes().stream().filter(note -> note.getId() == noteId).toList().getFirst();
+    noteToUpdate.setTitle(noteDTO.title());
+    noteToUpdate.setText(noteToUpdate.getText());
+    noteToUpdate.setFavorite(noteDTO.isFavorite());
+    noteRepository.save(noteToUpdate);
+    return true;
   }
 }

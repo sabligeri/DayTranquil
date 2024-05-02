@@ -23,10 +23,7 @@ public class Note {
     @ManyToOne(optional = false)
     @JsonManagedReference
     private User user;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private boolean isFavorite;
 
     public Long getId() {
         return id;
@@ -36,31 +33,43 @@ public class Note {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public User getUser() {
         return user;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

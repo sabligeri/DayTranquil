@@ -19,7 +19,6 @@ public class User {
     private List<Note> notes;
 
 
-
     public void setId(Long id) {
         this.id = id;
     }
