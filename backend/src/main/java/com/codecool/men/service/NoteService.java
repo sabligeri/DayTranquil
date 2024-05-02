@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteService {
@@ -26,15 +27,13 @@ public class NoteService {
 
   public List<NoteDTO> getAllNotes(long userId) {
     List<Note> notes = noteRepository.findByUserId(userId);
-    List<NoteDTO> noteDTOS = new ArrayList<>();
-    notes.stream().map(note -> noteDTOS.add(new NoteDTO(note.getTitle(), note.getText())));
-    return noteDTOS;
+    return notes.stream().map(note -> new NoteDTO(note.getTitle(), note.getText())).collect(Collectors.toList());
   }
 
   public NoteDTO getNote(long userId, long noteId) {
     Note note = noteRepository.findByIdAndUserId(noteId, userId);
-    if(note == null){
-        throw new OperationFailedException();
+    if (note == null) {
+      throw new OperationFailedException();
     }
     return new NoteDTO(note.getTitle(), note.getText());
   }
@@ -52,12 +51,16 @@ public class NoteService {
     User user = userRepository
             .findById(newNoteDTO.userId())
             .orElseThrow(UserNotFoundException::new);
+    createNote(newNoteDTO, user);
+    return new NoteDTO(newNoteDTO.title(), newNoteDTO.text());
+  }
+
+  private void createNote(NewNoteDTO newNoteDTO, User user) {
     Note note = new Note();
     note.setTitle(newNoteDTO.title());
     note.setText(newNoteDTO.text());
     note.setDate(LocalDate.now());
     note.setUser(user);
     noteRepository.save(note);
-    return new NoteDTO(newNoteDTO.title(), newNoteDTO.text());
   }
 }
