@@ -2,10 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Login from './components/Login.js';
+import Login from './components/login/Login.js';
 import App from './App.js';
 import Settings from './components/Settings.js';
 import NotePage from './components/note/NotePage.js';
+import MainPage from './components/main/MainPage.js';
 
 
 const router = createBrowserRouter([
@@ -18,8 +19,12 @@ const router = createBrowserRouter([
     element: <App/>,
     children: [
       {
-        path: "/main",
+        path: "/note",
         element: <NotePage/>
+      },
+      {
+        path: "/main",
+        element: <MainPage/>
       },
       {
         path: "/settings",

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
 export default function Note({ title, index, del, text, noteId }) {
+
+
+    
     const [fav, setFav] = useState(false);
     return (
         <div className="note" key={index}>

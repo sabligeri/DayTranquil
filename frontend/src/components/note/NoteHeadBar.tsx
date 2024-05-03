@@ -3,7 +3,7 @@ import AddNote from "./AddNote";
 
 
 
-export default function NoteHeadBar({reFetchNotes}){
+export default function NoteHeadBar({reFetchNotes, userId}){
 
 const [username, setUsername] = useState("Username");
 
@@ -13,7 +13,7 @@ const [username, setUsername] = useState("Username");
       <h2 id="note-user-name"><p id="note-user-name-spacer">{username}</p></h2>
       
       <div>
-        <AddNote reFetchNotes={reFetchNotes}/>
+        <AddNote reFetchNotes={reFetchNotes} userId={userId}/>
       </div>
     </div>
   )

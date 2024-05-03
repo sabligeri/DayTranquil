@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import DevelopmentHeadBar from "../DevelopmentHeadBar";
+import DevelopmentHeadBar from "../../DevelopmentHeadBar";
 
 async function addUser(name: string, password: string) {
   console.log("Add user: ");
