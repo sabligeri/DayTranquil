@@ -1,21 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Login from './components/login/Login.js';
-import App from './App.js';
-import Settings from './components/Settings.js';
-import NotePage from './components/note/NotePage.js';
-import MainPage from './components/main/MainPage.js';
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Login from "./components/Login.js";
+import Login from "./components/login/Login.js";
 import App from "./App.js";
 import Settings from "./components/Settings.js";
 import NotePage from "./components/note/NotePage.js";
+import MainPage from "./components/main/MainPage.js";
 import ShoppingList from "./components/note/ShoppingList.js";
 
 const router = createBrowserRouter([
@@ -29,9 +20,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/note",
-        element: <NotePage/>
-      },
-        path: "/main",
         element: <NotePage />,
       },
       {
@@ -40,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/main",
-        element: <MainPage/>
+        element: <MainPage />,
       },
       {
         path: "/settings",
