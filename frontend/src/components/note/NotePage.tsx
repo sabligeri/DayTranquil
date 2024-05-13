@@ -14,14 +14,6 @@ export default function NotePage() {
   const [notes, setNotes] = useState([]);
   const [userId, setUserId] = useState(0);
 
-  /*  const emptyNote: note = {
-    created: new Date(),
-    id: 0,
-    text: "",
-    title: "",
-    userId: 0,
-  }; */
-
   function createEmptyNote(noteId: number): note {
     const emptyNote = {
       noteId: noteId,

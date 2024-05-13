@@ -6,14 +6,23 @@ Source: https://sketchfab.com/3d-models/cup-of-cappuccino-04f2c34a3df94e58be97c2
 Title: Cup of cappuccino
 */
 
-import React, { useRef } from 'react'
+import  { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
+import { Material } from 'three';
 
 export function Cappuccino(props) {
-  const { nodes, materials } = useGLTF('../models/cup_of_cappuccino/scene.gltf')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { nodes, materials } = useGLTF('../models/cup_of_cappuccino/scene.gltf') as any;
+  const ref = useRef();
+
+  useFrame((state, delta)=>{
+    ref.current.rotation.y += delta * 0.5;
+  })
+
   return (
-    <group {...props} dispose={null}>
-      <group scale={9.5}>
+    <group {...props} dispose={null} ref={ref}>
+      <group scale={9.5} position={[0,-0.8,0]}  >
         <mesh
           castShadow
           receiveShadow
