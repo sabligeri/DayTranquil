@@ -12,6 +12,7 @@ function App() {
         <nav id="sidenav">
           <NavLink to="/login" className="nav-link"> LOGIN </NavLink>
           <NavLink to="/main" className="nav-link"> NOTES</NavLink>
+          <NavLink to="/shoppinglist" className="nav-link"> SHOPPING</NavLink>
           <NavLink to="/settings" className="nav-link-settings"> SETTINGS</NavLink>
         </nav>
       </aside>
