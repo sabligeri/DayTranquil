@@ -1,0 +1,29 @@
+.mainpage-conatainer-big {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+.mainpage-conatainer-back {
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 80vh;
+  background-color: #b600ff75;
+}
+
+.mainpage-conatainer-front {
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+  align-items: center;
+  background-color: #0000002e;
+}

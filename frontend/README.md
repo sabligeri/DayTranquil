@@ -1,3 +1,8 @@
+Cappuccino model dowonload url (.glTF file):
+https://sketchfab.com/3d-models/cup-of-cappuccino-04f2c34a3df94e58be97c2830e7e462a#download
+UnZip the file, copy the "cup_of_cappuccino" folder into the models folder.
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

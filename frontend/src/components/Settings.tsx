@@ -1,9 +1,12 @@
+import Loading from "../Loading";
 
-
-export default function Settings(){
-  return(
+export default function Settings() {
+  return (
     <>
-    Settings page not impl
+      Settings page not impl
+      <div>
+        <Loading />
+      </div>
     </>
-  )
+  );
 }

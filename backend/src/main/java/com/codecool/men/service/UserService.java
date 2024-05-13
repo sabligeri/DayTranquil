@@ -29,9 +29,9 @@ public class UserService {
     }
     boolean passwordMatch = user.get().getPassword().equals(newUserDTO.password());
     if (passwordMatch) {
-      throw new LoginFailedException();
+      return new UserDTO(user.get().getId().intValue());
     }
-    return new UserDTO(user.get().getId().intValue());
+    throw new LoginFailedException();
   }
 
   public UserNameDTO editUsername(UserNameDTO usernameDTO, int userId) {
