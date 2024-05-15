@@ -2,40 +2,68 @@ package com.codecool.men.service;
 
 import com.codecool.men.controller.exceptions.*;
 import com.codecool.men.repository.UserRepository;
-import com.codecool.men.repository.model.User;
+import com.codecool.men.repository.model.Role;
+import com.codecool.men.repository.model.UserEntity;
+import com.codecool.men.repository.model.payload.JwtResponse;
+import com.codecool.men.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.codecool.men.controller.dto.user.UserNameDTO;
 import com.codecool.men.controller.dto.user.UserPasswordDTO;
 import com.codecool.men.controller.dto.user.UserDTO;
 import com.codecool.men.controller.dto.user.NewUserDTO;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
   private final UserRepository userRepository;
+  private final AuthenticationManager authenticationManager;
+  private final JwtUtils jwtUtils;
+  private final PasswordEncoder encoder;
+
 
   @Autowired
-  public UserService(UserRepository userRepository) {
+  public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, PasswordEncoder encoder) {
     this.userRepository = userRepository;
+    this.authenticationManager = authenticationManager;
+    this.jwtUtils = jwtUtils;
+    this.encoder = encoder;
   }
 
-  public UserDTO loginUser(NewUserDTO newUserDTO) {
-    Optional<User> user = userRepository.findByUsername(newUserDTO.name());
-    if (user.isEmpty()) {
-      throw new LoginFailedException();
-    }
-    boolean passwordMatch = user.get().getPassword().equals(newUserDTO.password());
-    if (passwordMatch) {
-      return new UserDTO(user.get().getId().intValue());
-    }
-    throw new LoginFailedException();
+  public ResponseEntity<JwtResponse> loginUser(NewUserDTO newUserDTO) {
+
+    Authentication authentication = authenticationManager
+            .authenticate(new UsernamePasswordAuthenticationToken(newUserDTO.name(), newUserDTO.password()));
+
+
+    String jwt = jwtUtils.generateJwtToken(authentication);
+
+    User userDetails = (User) authentication.getPrincipal();
+    List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+            .toList();
+
+    Optional<UserEntity> userEntity = userRepository.findByUsername(newUserDTO.name());
+
+      long userId = userEntity.get().getId();
+      return ResponseEntity
+              .ok(new JwtResponse(jwt, userId, userDetails.getUsername(), roles));
+
   }
 
   public UserNameDTO editUsername(UserNameDTO usernameDTO, int userId) {
-    Optional<User> user = userRepository.findById((long) userId);
+    Optional<UserEntity> user = userRepository.findById((long) userId);
     if (user.isPresent()) {
       user.get().setUsername(usernameDTO.username());
       userRepository.save(user.get());
@@ -45,7 +73,7 @@ public class UserService {
   }
 
   public boolean editUserPassword(UserPasswordDTO passwordDTO, int userId) {
-    Optional<User> user = userRepository.findById((long) userId);
+    Optional<UserEntity> user = userRepository.findById((long) userId);
     if (user.isPresent()) {
       user.get().setPassword(passwordDTO.password());
       userRepository.save(user.get());
@@ -55,7 +83,7 @@ public class UserService {
   }
 
   public boolean deleteUser(int userId) {
-    Optional<User> user = userRepository.findById((long) userId);
+    Optional<UserEntity> user = userRepository.findById((long) userId);
     if (user.isPresent()) {
       userRepository.delete(user.get());
       return true;
@@ -64,16 +92,17 @@ public class UserService {
   }
 
   public boolean addUser(NewUserDTO newUserDTO) {
-    Optional<User> user = userRepository.findByUsername(newUserDTO.name());
+    Optional<UserEntity> user = userRepository.findByUsername(newUserDTO.name());
     if (user.isEmpty()) {
-      User newUser = new User();
+      UserEntity newUser = new UserEntity();
       newUser.setUsername(newUserDTO.name());
-      newUser.setPassword(newUserDTO.password());
+      newUser.setPassword(encoder.encode(newUserDTO.password()));
+      //newUser.setPassword(newUserDTO.password());
+      newUser.addRole(Role.ROLE_USER);
       userRepository.save(newUser);
       return true;
     } else {
       throw new OperationFailedException("Username already in use!");
     }
-
   }
 }

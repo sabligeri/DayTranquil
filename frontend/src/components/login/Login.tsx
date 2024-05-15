@@ -39,10 +39,10 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const id = JSON.parse(localStorage.getItem("userId")!);
+    /* const id = JSON.parse(localStorage.getItem("userId")!);
     if (id > 0) {
       setUserId(id);
-    }
+    } */
   }, []);
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
