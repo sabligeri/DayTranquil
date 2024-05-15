@@ -9,11 +9,6 @@ import java.util.Set;
 @Entity
 public class Note {
 
-//    String title,
-//    String text,
-//    Date created,
-//    int userId
-
     @Id
     @GeneratedValue
     private Long id;
@@ -22,7 +17,7 @@ public class Note {
     private LocalDate date;
     @ManyToOne(optional = false)
     @JsonManagedReference
-    private User user;
+    private UserEntity userEntity;
     private boolean isFavorite;
 
     public Long getId() {
@@ -41,8 +36,8 @@ public class Note {
         return date;
     }
 
-    public User getUser() {
-        return user;
+    public UserEntity getUser() {
+        return userEntity;
     }
 
     public boolean isFavorite() {
@@ -65,8 +60,8 @@ public class Note {
         this.date = date;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public void setFavorite(boolean favorite) {

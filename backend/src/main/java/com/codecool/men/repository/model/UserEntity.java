@@ -3,20 +3,32 @@ package com.codecool.men.repository.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "\"user\"")
-public class User {
+public class UserEntity {
     // egy user-hez több note is tartozhat
     @Id
     @GeneratedValue
     private Long id;
+
     private String username;
+
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Note> notes;
+
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable(name = "user_roles") // Ez létrehoz egy külön táblát a role-oknak
+    @Enumerated(EnumType.STRING) // Ez tárolja az enum értékeket mint String
+    private Set<Role> roles = new HashSet<>();
+
+
 
 
     public void setId(Long id) {
@@ -50,4 +62,18 @@ public class User {
     public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        roles.remove(role);
+    }
+
+
 }
