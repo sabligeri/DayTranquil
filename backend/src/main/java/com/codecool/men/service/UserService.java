@@ -1,6 +1,9 @@
 package com.codecool.men.service;
 
-import com.codecool.men.controller.exceptions.*;
+import com.codecool.men.controller.dto.user.NewUserDTO;
+import com.codecool.men.controller.dto.user.UserNameDTO;
+import com.codecool.men.controller.dto.user.UserPasswordDTO;
+import com.codecool.men.controller.exceptions.OperationFailedException;
 import com.codecool.men.repository.UserRepository;
 import com.codecool.men.repository.model.Role;
 import com.codecool.men.repository.model.RoleEntity;
@@ -8,18 +11,12 @@ import com.codecool.men.repository.model.UserEntity;
 import com.codecool.men.repository.model.payload.JwtResponse;
 import com.codecool.men.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.codecool.men.controller.dto.user.UserNameDTO;
-import com.codecool.men.controller.dto.user.UserPasswordDTO;
-import com.codecool.men.controller.dto.user.UserDTO;
-import com.codecool.men.controller.dto.user.NewUserDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

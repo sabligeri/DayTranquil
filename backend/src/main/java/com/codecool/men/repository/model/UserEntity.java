@@ -23,6 +23,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Note> notes;
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<ShoppingListItem> shoppingListItems;
 
 //    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 //    @CollectionTable(name = "user_roles") // Ez létrehoz egy külön táblát a role-oknak
@@ -71,6 +74,18 @@ public class UserEntity {
     }
     public boolean addRole(RoleEntity role){
        return roles.add(role);
+    }
+
+    public List<ShoppingListItem> getShoppingListItems() {
+        return shoppingListItems;
+    }
+
+    public void addShoppingListItems(ShoppingListItem shoppingListItems) {
+        this.shoppingListItems.add(shoppingListItems);
+    }
+
+    public void removeShoppingListItems(ShoppingListItem shoppingListItems) {
+        this.shoppingListItems.remove(shoppingListItems);
     }
 
     @Override
