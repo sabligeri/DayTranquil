@@ -27,7 +27,7 @@ public class ShoppingListItemService {
 
     public List<ShoppingListItemDTO> getAllItems(long userId){
         List<ShoppingListItem> shoppingListItems = shoppingListRepository.findByUserEntityId(userId);
-        return shoppingListItems.stream().map(item -> new ShoppingListItemDTO(item.getId(), item.getProductName(), item.getQuantity())).toList();
+        return shoppingListItems.stream().map(item -> new ShoppingListItemDTO(item.getId(), item.getProductName(), item.getQuantity(), item.isBought())).toList();
     }
 
     public boolean addItem(NewItemDTO newItemDTO, long userId){
