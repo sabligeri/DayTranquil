@@ -69,6 +69,9 @@ public class UserEntity {
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
+    public boolean addRole(RoleEntity role){
+       return roles.add(role);
+    }
 
     @Override
     public String toString() {
