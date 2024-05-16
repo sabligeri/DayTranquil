@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import DevelopmentHeadBar from "../../DevelopmentHeadBar";
 
 async function addUser(name: string, password: string) {
   console.log("Add user: ");
@@ -81,6 +80,7 @@ export default function Login() {
         localStorage.setItem("userId", JSON.stringify(responseUserId));
         localStorage.setItem("jwt", JSON.stringify(responseUser.jwt));
         localStorage.setItem("roles", JSON.stringify(responseUser.roles));
+        localStorage.setItem("username", JSON.stringify(responseUser.userName));
         setUserId(responseUser.id);
         navigate("/main");
 
@@ -105,7 +105,6 @@ export default function Login() {
 
   return userId > 0 ? (
     <div id="login-root">
-      <DevelopmentHeadBar></DevelopmentHeadBar>
       <form className="login-layout" onSubmit={(e) => handleLogout(e)}>
         <h2>You are logged in! </h2>
         <button type="submit" className="login-page-btn">
@@ -115,7 +114,6 @@ export default function Login() {
     </div>
   ) : (
     <div id="login-root">
-      <DevelopmentHeadBar></DevelopmentHeadBar>
       <div className="main">
         <input type="checkbox" id="chk" aria-hidden="true" />
         <div className="signup">
