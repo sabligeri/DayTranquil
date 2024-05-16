@@ -37,4 +37,7 @@ public class RoleEntity {
     public void setUser(UserEntity user) {
         this.user = user;
     }
+    public boolean isGivenRole(Role incoming){
+        return role == incoming;
+    }
 }
