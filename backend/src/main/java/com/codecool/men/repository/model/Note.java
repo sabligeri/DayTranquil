@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -66,5 +67,8 @@ public class Note {
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
+    }
+    public boolean isTodaysNote(){
+        return Objects.equals(this.date, LocalDate.now());
     }
 }

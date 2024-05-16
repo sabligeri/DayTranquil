@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 @Service
 public class UserService {
@@ -82,6 +83,9 @@ public class UserService {
   public boolean addPremiumToUser(long userId){
     Optional<UserEntity> user = userRepository.findById(userId);
     if (user.isPresent()) {
+      if(user.get().getRoles().stream().map(roleEntity -> roleEntity.isGivenRole(Role.ROLE_PREMIUM)).anyMatch(Predicate.isEqual(true))){
+        throw new OperationFailedException("Already has Premium!");
+      }
       RoleEntity role = new RoleEntity();
       role.setRole(Role.ROLE_PREMIUM);
       role.setUser(user.get());

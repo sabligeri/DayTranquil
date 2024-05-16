@@ -24,8 +24,13 @@ public class NoteService {
     this.userRepository = userRepository;
   }
 
-  public List<NoteDTO> getAllNotes(long userId) {
-    List<Note> notes = noteRepository.findByUserEntityId(userId);
+  public List<NoteDTO> getAllNotes(long noteId) {
+    List<Note> notes = noteRepository.findByUserEntityId(noteId);
+    return notes.stream().map(note -> new NoteDTO(note.getId(), note.getTitle(), note.getText(), note.isFavorite())).collect(Collectors.toList());
+  }
+  public List<NoteDTO> getNotesOfToday(long noteId){
+    List<Note> notes = noteRepository.findByUserEntityId(noteId);
+    notes = notes.stream().filter(Note::isTodaysNote).toList();
     return notes.stream().map(note -> new NoteDTO(note.getId(), note.getTitle(), note.getText(), note.isFavorite())).collect(Collectors.toList());
   }
 
