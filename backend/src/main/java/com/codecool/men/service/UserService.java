@@ -73,8 +73,8 @@ public class UserService {
     throw new OperationFailedException("User not found!");
   }
 
-  public boolean editUserPassword(UserPasswordDTO passwordDTO, int userId) {
-    Optional<UserEntity> user = userRepository.findById((long) userId);
+  public boolean editUserPassword(UserPasswordDTO passwordDTO, long userId) {
+    Optional<UserEntity> user = userRepository.findById(userId);
     if (user.isPresent()) {
       user.get().setPassword(passwordDTO.password());
       userRepository.save(user.get());
@@ -82,9 +82,21 @@ public class UserService {
     }
     throw new OperationFailedException("User not found!");
   }
+  public boolean addPremiumToUser(long userId){
+    Optional<UserEntity> user = userRepository.findById(userId);
+    if (user.isPresent()) {
+      RoleEntity role = new RoleEntity();
+      role.setRole(Role.ROLE_PREMIUM);
+      role.setUser(user.get());
+      user.get().addRole(role);
+      userRepository.save(user.get());
+      return true;
+    }
+    throw new OperationFailedException("User not found!");
+  }
 
-  public boolean deleteUser(int userId) {
-    Optional<UserEntity> user = userRepository.findById((long) userId);
+  public boolean deleteUser(long userId) {
+    Optional<UserEntity> user = userRepository.findById(userId);
     if (user.isPresent()) {
       userRepository.delete(user.get());
       return true;
