@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 export default function AddNote({reFetchNotes, userId}) {
   const [title, setTitle] = useState("")
   const [text, setText] = useState("")
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [userToken, setUserToken] = useState("");
 
   interface NewNote {
     title: string;
     text: string;
     userId: string;
+    date: Date;
   }
 
   useEffect(() => {
@@ -46,7 +47,8 @@ export default function AddNote({reFetchNotes, userId}) {
     const newNote = {
       title: title,
       text: text,
-      userId: userId
+      userId: userId,
+      date: date
     }
     addNote(newNote)
   }
@@ -58,7 +60,7 @@ export default function AddNote({reFetchNotes, userId}) {
         <button onClick={() => handleAddNote()}>Save</button>
       </div>
       <div id="add-note-textarea-container" >
-      <input id="add-note-set-date" type="date"  /* value={new Date().toISOString().split('T')[0]} *//>
+      <input id="add-note-set-date" type="date" onChange={(e) => setDate(new Date(e.target.value))} />
       <textarea id="add-note-textarea-title" onChange={(e) => setTitle(e.target.value)} placeholder="Your title..."></textarea>
       <textarea id="add-note-textarea-text" onChange={(e) => setText(e.target.value)} placeholder="Your text..."></textarea>
       </div>

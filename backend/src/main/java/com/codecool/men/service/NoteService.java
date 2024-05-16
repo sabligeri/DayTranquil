@@ -62,7 +62,8 @@ public class NoteService {
   private void createNote(NewNoteDTO newNoteDTO, UserEntity user, Note note) {
     note.setTitle(newNoteDTO.title());
     note.setText(newNoteDTO.text());
-    note.setDate(LocalDate.now());
+    System.out.println(newNoteDTO.date());
+    note.setDate(newNoteDTO.date());
     note.setUser(user);
     note.setFavorite(false);
     noteRepository.save(note);

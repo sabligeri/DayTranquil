@@ -1,3 +1,4 @@
+import TodaysNotes from "../note/TodaysNotes";
 import MyCanva from "./3D/MyCanva";
 import "./mainPage.css";
 
@@ -10,8 +11,8 @@ export default function MainPage() {
         </div>
       </div>
       <div className="mainpage-conatainer-back">
-        <div className="mainpage-conatainer-front">
-          Valami
+        <div className="mainpage-conatainer-front" >
+        <TodaysNotes />
         </div>
       </div>
       <div className="mainpage-conatainer-back">

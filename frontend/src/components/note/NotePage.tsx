@@ -62,6 +62,9 @@ export default function NotePage() {
   async function handleDeleteNote(noteId: number) {
     const response = await fetch(`/api/note/${userId}/${noteId}`, {
       method: "DELETE",
+      headers: {
+        'Authorization': `Bearer ${userToken}`
+      }
     });
 
     if (response.ok) {
