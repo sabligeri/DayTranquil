@@ -29,7 +29,7 @@ export default function TodaysNotes() {
 
   async function fetchNotes() {
     try {
-      const response = await fetch(`/api/note/${userId}`, {
+      const response = await fetch(`/api/note/${userId}/today`, {
         headers: {
           'Authorization': `Bearer ${userToken}`
         },
@@ -61,11 +61,7 @@ export default function TodaysNotes() {
 
 
 
-  useEffect(() => {
-    const today = new Date();
-    const todayNotes = notes.filter(note => note.date === today);
-    setNotes(todayNotes)
-  }, []);
+
 
   return (
     <div id="todays-notes-container">
