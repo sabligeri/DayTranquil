@@ -80,6 +80,7 @@ export default function Login() {
 
         localStorage.setItem("userId", JSON.stringify(responseUserId));
         localStorage.setItem("jwt", JSON.stringify(responseUser.jwt));
+        localStorage.setItem("roles", JSON.stringify(responseUser.roles));
         setUserId(responseUser.id);
         navigate("/main");
 
