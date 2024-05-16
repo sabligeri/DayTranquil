@@ -26,7 +26,7 @@ public class NoteController {
     public NoteDTO getNote(@PathVariable int userId, @PathVariable int noteId) {
         return noteService.getNote(userId, noteId);
     }
-    @GetMapping("/today/{userId}")
+    @GetMapping("/today")
     public List<NoteDTO> getTodaysNotes(@PathVariable long userId){
         return noteService.getNotesOfToday(userId);
     }
