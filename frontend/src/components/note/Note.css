@@ -246,3 +246,14 @@
 .heart{
 vertical-align: middle;
 }
+
+
+#todays-notes-grid{
+  padding: 1vw;
+  display: grid;
+  overflow-x: hidden;
+}
+
+#no-notes{
+  text-align: center;
+}
