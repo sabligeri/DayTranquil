@@ -3,12 +3,16 @@ import Divider from "@mui/material/Divider";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { faCircleChevronLeft, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleChevronLeft,
+  faCirclePlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function ShoppingList() {
   const [items, setItems] = useState([]);
   const [bought, setBought] = useState(false);
   const [productName, setInputName] = useState("");
+  const [gotPremium, setGotPremium] = useState(false);
 
   interface item {
     id: number;
@@ -23,7 +27,11 @@ export default function ShoppingList() {
 
   async function fetchItems() {
     const response = await fetch("/api/shopping");
+    if (!response.ok) {
+      console.log("o ooo");
+    }
     const items = await response.json();
+
     setItems(items);
   }
 
@@ -70,71 +78,80 @@ export default function ShoppingList() {
 
   return (
     <>
-      <div id="add-new-item">
-        <form onSubmit={(e) => addItem(e)}>
-        <div id="new">
-            <input
-              type="text"
-              placeholder="Add new item..."
-              onChange={(e) => setInputName(e.target.value)}
-            />
-            <button  className="new-item-btn">
-            <FontAwesomeIcon
-                         
-                          icon={faCirclePlus}
-                        />
-            </button>
-            
-          
+      {!gotPremium ? (
+        <div className="no-premium">
+          <h2>THIS FEATURE IS ONLY ACCESSIBLE FOR PREMIUM USERS</h2>
+          <button className="premium-btn">BUY PREMIUM</button>
+        </div>
+      ) : (
+        <>
+          <div id="add-new-item">
+            <form onSubmit={(e) => addItem(e)}>
+              <div id="new">
+                <input
+                  type="text"
+                  placeholder="Add new item..."
+                  onChange={(e) => setInputName(e.target.value)}
+                />
+                <button className="new-item-btn">
+                  <FontAwesomeIcon icon={faCirclePlus} />
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-
-      <div id="shopping-list-container">
-        <table id="shopping-list-table">
-          <thead>
-            <tr>
-              <th>Bought</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items
-              .sort((a: item, b: item) => a.id - b.id)
-              .map((item: item) => (
-                <React.Fragment key={item.id}>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={item.bought}
-                        onClick={() => updateBought(item.id)}
-                      />
-                    </td>
-                    <td>{item.productName}</td>
-                    <td>
-                      <div className="item-quantity">
-                        <FontAwesomeIcon className="decr-btn" icon={faCircleChevronLeft} />
-                        <span>{item.quantity}</span>
-                        <FontAwesomeIcon className="incr-btn" icon={faCircleChevronRight} />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan={3}>
-                      <Divider
-                        variant="middle"
-                        style={{ background: "white" }}
-                        className="divider"
-                      />
-                    </td>
-                  </tr>
-                </React.Fragment>
-              ))}
-          </tbody>
-        </table>
-      </div>
+          <div id="shopping-list-container">
+            <table id="shopping-list-table">
+              <thead>
+                <tr>
+                  <th>Bought</th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items
+                  .sort((a: item, b: item) => a.id - b.id)
+                  .map((item: item) => (
+                    <React.Fragment key={item.id}>
+                      <tr>
+                        <td>
+                          <input
+                            type="checkbox"
+                            checked={item.bought}
+                            onClick={() => updateBought(item.id)}
+                          />
+                        </td>
+                        <td>{item.productName}</td>
+                        <td>
+                          <div className="item-quantity">
+                            <FontAwesomeIcon
+                              className="decr-btn"
+                              icon={faCircleChevronLeft}
+                            />
+                            <span>{item.quantity}</span>
+                            <FontAwesomeIcon
+                              className="incr-btn"
+                              icon={faCircleChevronRight}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={3}>
+                          <Divider
+                            variant="middle"
+                            style={{ background: "white" }}
+                            className="divider"
+                          />
+                        </td>
+                      </tr>
+                    </React.Fragment>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </>
   );
 }

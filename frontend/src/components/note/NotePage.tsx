@@ -35,7 +35,9 @@ export default function NotePage() {
   }, []);
 
   useEffect(() => {
-    fetchNotes();
+    if(userId > 0){
+      fetchNotes();
+    }
   }, [userId]);
 
   async function fetchNotes(): Promise<void> {
