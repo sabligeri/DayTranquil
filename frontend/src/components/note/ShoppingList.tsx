@@ -12,21 +12,43 @@ export default function ShoppingList() {
   const [items, setItems] = useState([]);
   const [bought, setBought] = useState(false);
   const [productName, setInputName] = useState("");
+  const [productQuantity, setProductQuantity] = useState(0);
+  const [userId, setUserId] = useState(0);
+  const [userToken, setUserToken] = useState("");
   const [gotPremium, setGotPremium] = useState(false);
 
   interface item {
-    id: number;
-    productName: string;
+    itemId: number;
+    name: string;
     quantity: number;
-    bought: boolean;
+    isBought: boolean;
   }
 
   useEffect(() => {
-    fetchItems();
+    const id = JSON.parse(localStorage.getItem("userId")!);
+    const token = JSON.parse(localStorage.getItem("jwt")!);
+    const roles = JSON.parse(localStorage.getItem("roles")!);
+    setUserToken(token);
+    if (roles.includes("ROLE_PREMIUM")) {
+      setGotPremium(true);
+    }
+    if (id > 0) {
+      setUserId(id);
+    }
   }, []);
 
+  useEffect(() => {
+    if (userId > 0) {
+      fetchItems();
+    }
+  }, [userId]);
+
   async function fetchItems() {
-    const response = await fetch("/api/shopping");
+    const response = await fetch(`/api/shopping/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
     if (!response.ok) {
       console.log("o ooo");
     }
@@ -41,11 +63,12 @@ export default function ShoppingList() {
       name: productName,
     };
     try {
-      const response = await fetch(`/api/shopping`, {
+      const response = await fetch(`/api/shopping/${userId}`, {
         method: "POST",
         body: JSON.stringify(newItem),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
         },
       });
 
@@ -61,18 +84,81 @@ export default function ShoppingList() {
   }
 
   async function updateBought(id: number) {
-    console.log(bought);
     setBought(!bought);
-    console.log(bought);
     const response = await fetch(
-      `/api/shopping/bought/${id}?isbought=${bought}`,
+      `/api/shopping/${userId}/bought/${id}?isBought=${bought}`,
       {
         method: "PUT",
+        headers: { Authorization: `Bearer ${userToken}` },
       }
     );
     if (response.ok) {
       console.log("ok");
       fetchItems();
+      setGotPremium(true);
+    }
+  }
+
+  async function handleBuyPremium(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(userToken);
+    const response = await fetch(`/api/user/edit/premium/${userId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    const data = await response.json();
+    setGotPremium(true);
+
+    const rolesString = localStorage.getItem("roles");
+    const roles: string[] = rolesString ? JSON.parse(rolesString) : [];
+
+    // Push the new role into the array
+    roles.push("ROLE_PREMIUM");
+
+    // Store the updated array back into localStorage
+    localStorage.setItem("roles", JSON.stringify(roles));
+    console.log(data);
+  }
+
+  async function handleIncreaseQuantity(id: number, quantity: number){
+    try {
+      const response = await fetch(`/api/shopping/${userId}/quantity/${id}?quantity=${quantity}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        fetchItems(); // Refresh the items list
+      } else {
+        console.error("Failed to update quantity");
+      }
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+    }
+  }
+  
+  async function handleDecreaseQuantity(id: number, quantity: number){
+    try {
+      const response = await fetch(`/api/shopping/${userId}/quantity/${id}?quantity=${quantity}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        fetchItems(); // Refresh the items list
+      } else {
+        console.error("Failed to update quantity");
+      }
+    } catch (error) {
+      console.error("Error updating quantity:", error);
     }
   }
 
@@ -81,7 +167,9 @@ export default function ShoppingList() {
       {!gotPremium ? (
         <div className="no-premium">
           <h2>THIS FEATURE IS ONLY ACCESSIBLE FOR PREMIUM USERS</h2>
-          <button className="premium-btn">BUY PREMIUM</button>
+          <form action="" onSubmit={(e) => handleBuyPremium(e)}>
+            <button className="premium-btn">BUY PREMIUM</button>
+          </form>
         </div>
       ) : (
         <>
@@ -110,26 +198,28 @@ export default function ShoppingList() {
               </thead>
               <tbody>
                 {items
-                  .sort((a: item, b: item) => a.id - b.id)
+                  .sort((a: item, b: item) => a.itemId - b.itemId)
                   .map((item: item) => (
-                    <React.Fragment key={item.id}>
+                    <React.Fragment key={item.itemId}>
                       <tr>
                         <td>
                           <input
                             type="checkbox"
-                            checked={item.bought}
-                            onClick={() => updateBought(item.id)}
+                            checked={item.isBought}
+                            onClick={() => updateBought(item.itemId)}
                           />
                         </td>
-                        <td>{item.productName}</td>
+                        <td>{item.name}</td>
                         <td>
                           <div className="item-quantity">
                             <FontAwesomeIcon
+                            onClick={() => handleDecreaseQuantity(item.itemId, item.quantity - 1)}
                               className="decr-btn"
                               icon={faCircleChevronLeft}
                             />
                             <span>{item.quantity}</span>
                             <FontAwesomeIcon
+                              onClick={() => handleIncreaseQuantity(item.itemId, item.quantity + 1)}
                               className="incr-btn"
                               icon={faCircleChevronRight}
                             />
