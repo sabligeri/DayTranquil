@@ -12,7 +12,6 @@ export default function ShoppingList() {
   const [items, setItems] = useState([]);
   const [bought, setBought] = useState(false);
   const [productName, setInputName] = useState("");
-  const [productQuantity, setProductQuantity] = useState(0);
   const [userId, setUserId] = useState(0);
   const [userToken, setUserToken] = useState("");
   const [gotPremium, setGotPremium] = useState(false);

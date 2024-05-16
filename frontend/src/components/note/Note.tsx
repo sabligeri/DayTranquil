@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
-export default function Note({ title, index, del, text, noteId }) {
+interface NoteProps {
+    title: string;
+    index: number;
+    del: (noteId: number) => void;
+    text: string; // Define the type of 'text' prop
+    noteId: number;
+  }
+  
+  export default function Note({ title, index, del, text, noteId }: NoteProps) {
 
 
     
