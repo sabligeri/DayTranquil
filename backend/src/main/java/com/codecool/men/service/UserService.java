@@ -3,6 +3,7 @@ package com.codecool.men.service;
 import com.codecool.men.controller.exceptions.*;
 import com.codecool.men.repository.UserRepository;
 import com.codecool.men.repository.model.Role;
+import com.codecool.men.repository.model.RoleEntity;
 import com.codecool.men.repository.model.UserEntity;
 import com.codecool.men.repository.model.payload.JwtResponse;
 import com.codecool.men.security.jwt.JwtUtils;
@@ -55,7 +56,7 @@ public class UserService {
             .toList();
 
     Optional<UserEntity> userEntity = userRepository.findByUsername(newUserDTO.name());
-
+    System.out.println(userEntity);
       long userId = userEntity.get().getId();
       return ResponseEntity
               .ok(new JwtResponse(jwt, userId, userDetails.getUsername(), roles));
@@ -98,7 +99,12 @@ public class UserService {
       newUser.setUsername(newUserDTO.name());
       newUser.setPassword(encoder.encode(newUserDTO.password()));
       //newUser.setPassword(newUserDTO.password());
-      newUser.addRole(Role.ROLE_USER);
+      RoleEntity role = new RoleEntity();
+      role.setRole(Role.ROLE_USER);
+      role.setUser(newUser);
+
+      newUser.setRoles(Set.of(role));
+
       userRepository.save(newUser);
       return true;
     } else {

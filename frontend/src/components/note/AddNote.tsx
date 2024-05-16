@@ -4,6 +4,7 @@ export default function AddNote({reFetchNotes, userId}) {
   const [title, setTitle] = useState("")
   const [text, setText] = useState("")
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [userToken, setUserToken] = useState("");
 
   interface NewNote {
     title: string;
@@ -11,11 +12,12 @@ export default function AddNote({reFetchNotes, userId}) {
     userId: string;
   }
 
-useEffect(() => {
-  //console.log(currentDate);
-  
-  //setCurrentDate(new Date());
-})
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("jwt")!);
+
+      setUserToken(token);
+    
+  }, []);
 
   async function addNote(newNote: NewNote) {
     try {
@@ -24,6 +26,7 @@ useEffect(() => {
         body: JSON.stringify(newNote),
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`
         },
       });
       

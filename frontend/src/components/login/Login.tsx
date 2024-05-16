@@ -33,16 +33,16 @@ export default function Login() {
   const [userName, setUsername] = useState("");
   const [userNamePlaceholder, setUserNamePlaceholder] = useState("Username");
   const [password, setUserPassword] = useState("");
-  const [passwordPlaceholder, setPasswordPlaceholder] = useState("Passworld");
+  const [passwordPlaceholder, setPasswordPlaceholder] = useState("Password");
   const [userId, setUserId] = useState(-1);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    /* const id = JSON.parse(localStorage.getItem("userId")!);
+    const id = JSON.parse(localStorage.getItem("userId")!);
     if (id > 0) {
       setUserId(id);
-    } */
+    } 
   }, []);
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,14 +76,11 @@ export default function Login() {
 
       if (response.ok) {
         const responseUser = await response.json();
-        const responseUserId = responseUser.userID;
-
-        console.log("userId: " + responseUser.userID);
-        console.log("user pass: " + responseUser.password);
-        console.log("user name: " + responseUser.userName);
+        const responseUserId = responseUser.id;
 
         localStorage.setItem("userId", JSON.stringify(responseUserId));
-        setUserId(responseUser.userID);
+        localStorage.setItem("jwt", JSON.stringify(responseUser.jwt));
+        setUserId(responseUser.id);
         navigate("/main");
 
       }
