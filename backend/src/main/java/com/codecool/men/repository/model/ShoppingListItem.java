@@ -1,8 +1,12 @@
 package com.codecool.men.repository.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+import java.util.Objects;
 
 @Entity
 public class ShoppingListItem {
@@ -13,6 +17,9 @@ public class ShoppingListItem {
     private String productName;
     private int quantity;
     private boolean bought;
+    @ManyToOne(optional = false)
+    @JsonManagedReference
+    private UserEntity userEntity;
 
     public boolean isBought() {
         return bought;
@@ -42,7 +49,16 @@ public class ShoppingListItem {
         this.id = id;
     }
 
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
     public Long getId() {
         return id;
     }
+
 }
