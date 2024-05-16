@@ -3,7 +3,7 @@ import Divider from "@mui/material/Divider";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCircleChevronLeft, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function ShoppingList() {
   const [items, setItems] = useState([]);
@@ -27,7 +27,7 @@ export default function ShoppingList() {
     setItems(items);
   }
 
-  async function addItem(e) {
+  async function addItem(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const newItem = {
       name: productName,
@@ -72,12 +72,21 @@ export default function ShoppingList() {
     <>
       <div id="add-new-item">
         <form onSubmit={(e) => addItem(e)}>
-          <input
-            type="text"
-            placeholder="Add new item..."
-            onChange={(e) => setInputName(e.target.value)}
-          />
-          <button>+</button>
+        <div id="new">
+            <input
+              type="text"
+              placeholder="Add new item..."
+              onChange={(e) => setInputName(e.target.value)}
+            />
+            <button  className="new-item-btn">
+            <FontAwesomeIcon
+                         
+                          icon={faCirclePlus}
+                        />
+            </button>
+            
+          
+          </div>
         </form>
       </div>
 
