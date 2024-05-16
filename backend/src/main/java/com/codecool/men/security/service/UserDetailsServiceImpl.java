@@ -2,6 +2,7 @@ package com.codecool.men.security.service;
 
 
 import com.codecool.men.repository.model.Role;
+import com.codecool.men.repository.model.RoleEntity;
 import com.codecool.men.repository.model.UserEntity;
 import com.codecool.men.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             .orElseThrow(() -> new UsernameNotFoundException(username));
 
     List<SimpleGrantedAuthority> roles = new ArrayList<>();
-    for (Role role : userEntity.getRoles()) {
-      roles.add(new SimpleGrantedAuthority(role.name()));
+    for (RoleEntity role : userEntity.getRoles()) {
+      System.out.println("role: " + role.getRole().name());
+      roles.add(new SimpleGrantedAuthority(role.getRole().name()));
     }
 
     return new User(userEntity.getUsername(), userEntity.getPassword(), roles);

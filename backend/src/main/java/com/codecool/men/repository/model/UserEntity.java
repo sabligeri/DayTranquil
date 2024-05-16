@@ -2,13 +2,14 @@ package com.codecool.men.repository.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"user\"")
+
 public class UserEntity {
     // egy user-hez több note is tartozhat
     @Id
@@ -23,13 +24,11 @@ public class UserEntity {
     @JsonBackReference
     private List<Note> notes;
 
-    @ElementCollection(targetClass = Role.class)
-    @CollectionTable(name = "user_roles") // Ez létrehoz egy külön táblát a role-oknak
-    @Enumerated(EnumType.STRING) // Ez tárolja az enum értékeket mint String
-    private Set<Role> roles = new HashSet<>();
-
-
-
+//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "user_roles") // Ez létrehoz egy külön táblát a role-oknak
+//    @Enumerated(EnumType.STRING) // Ez tárolja az enum értékeket mint String
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles;
 
     public void setId(Long id) {
         this.id = id;
@@ -63,17 +62,22 @@ public class UserEntity {
         this.notes = notes;
     }
 
-    public Set<Role> getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void addRole(Role role) {
-        roles.add(role);
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
     }
 
-    public void removeRole(Role role) {
-        roles.remove(role);
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", notes=" + notes +
+                ", roles=" + roles +
+                '}';
     }
-
-
 }

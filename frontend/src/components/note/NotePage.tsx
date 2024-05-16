@@ -13,6 +13,7 @@ interface note {
 export default function NotePage() {
   const [notes, setNotes] = useState([]);
   const [userId, setUserId] = useState(0);
+  const [userToken, setUserToken] = useState("");
 
   function createEmptyNote(noteId: number): note {
     const emptyNote = {
@@ -25,9 +26,11 @@ export default function NotePage() {
   }
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("userId")!);
-    if (userId > 0) {
-      setUserId(userId);
+    const id = JSON.parse(localStorage.getItem("userId")!);
+    const token = JSON.parse(localStorage.getItem("jwt")!);
+    if (id > 0) {
+      setUserId(id);
+      setUserToken(token);
     }
   }, []);
 
@@ -36,8 +39,13 @@ export default function NotePage() {
   }, [userId]);
 
   async function fetchNotes(): Promise<void> {
+    console.log(`Bearer ${userToken}`)
     try {
-      const response = await fetch(`/api/note/${userId}`);
+      const response = await fetch(`/api/note/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${userToken}`
+        }
+      });
       const data = await response.json();
       if (data.length >= 3) {
         data.splice(3, 0, createEmptyNote(-1));

@@ -61,7 +61,7 @@ public class WebSecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth ->
                     auth.requestMatchers("api/user/**").permitAll()
-                            .requestMatchers("api/note/**").hasRole("USER")
+                            .requestMatchers("/api/note/**").hasRole("USER")
                             .requestMatchers("api/shopping/**").hasRole("PREMIUM")
                             .anyRequest().authenticated()
 
