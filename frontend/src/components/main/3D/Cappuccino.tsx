@@ -12,7 +12,7 @@ import { useFrame } from '@react-three/fiber';
 
 export function Cappuccino(props) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { nodes, materials } = useGLTF('../model/cup_of_cappuccino/scene.gltf') as any;
+  const { nodes, materials } = useGLTF('../src/components/main/model/cup_of_cappuccino/scene.gltf') as any; //./model/cup_of_cappuccino/scene.gltf
   const ref = useRef();
 
   useFrame((state, delta)=>{
