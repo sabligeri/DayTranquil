@@ -107,7 +107,7 @@ export default function ShoppingList() {
   async function handleBuyPremium(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(userToken);
-    const response = await fetch(`/api/user/edit/premium/${userId}`, {
+    const response = await fetch(`/api/user/subscribe/${userId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${userToken}`,
