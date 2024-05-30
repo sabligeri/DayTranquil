@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Divider from "@mui/material/Divider";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,13 +42,7 @@ export default function ShoppingList() {
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    if (userId > 0) {
-      fetchItems();
-    }
-  }, [userId]);
-
-  async function fetchItems() {
+  const fetchItems = useCallback(async () => {
     const response = await fetch(`/api/shopping/${userId}`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
@@ -60,7 +54,13 @@ export default function ShoppingList() {
     const items = await response.json();
 
     setItems(items);
-  }
+  }, [userId, userToken]);
+
+  useEffect(() => {
+    if (userId > 0) {
+      fetchItems();
+    }
+  }, [userId, fetchItems]);
 
   async function addItem(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
