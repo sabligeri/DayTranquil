@@ -1,7 +1,6 @@
 package com.codecool.men.security.service;
 
 
-import com.codecool.men.repository.model.Role;
 import com.codecool.men.repository.model.RoleEntity;
 import com.codecool.men.repository.model.UserEntity;
 import com.codecool.men.repository.UserRepository;
