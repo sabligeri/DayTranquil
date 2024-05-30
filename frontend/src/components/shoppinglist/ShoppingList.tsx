@@ -151,6 +151,8 @@ export default function ShoppingList() {
   }
 
   async function handleDecreaseQuantity(id: number, quantity: number) {
+    if (quantity < 0) return;
+  
     try {
       const response = await fetch(
         `/api/shopping/${userId}/quantity/${id}?quantity=${quantity}`,
@@ -228,7 +230,7 @@ export default function ShoppingList() {
                           <input
                             type="checkbox"
                             checked={item.isBought}
-                            onClick={() => updateBought(item.itemId)}
+                            onChange={() => updateBought(item.itemId)}
                           />
                         </td>
                         <td>{item.name}</td>
