@@ -6,6 +6,7 @@ interface Note {
     noteId: number;
     title: string;
     text: string;
+    isFavorite: boolean,
     userId: number;
   }
 
@@ -73,6 +74,7 @@ export default function TodaysNotes() {
               title={note.title}
               text={note.text}
               noteId={note.noteId}
+              isFavorite={note.isFavorite}
               index={index}
               del={handleDeleteNote}
             />
