@@ -11,8 +11,9 @@ export default function MainPage() {
         </div>
       </div>
       <div className="mainpage-conatainer-back"> 
+        <div id="today-notes-title">TODAY'S NOTES</div>
         <div className="mainpage-conatainer-front" >
-        <TodaysNotes />
+              <TodaysNotes />
         </div>
       </div>
       <div className="mainpage-conatainer-back">
