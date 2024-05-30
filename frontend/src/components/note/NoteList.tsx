@@ -5,6 +5,7 @@ interface Note {
   noteId: number;
   text: string;
   title: string;
+  isFavorite: boolean;
   userId: number;
 }
 
@@ -25,6 +26,7 @@ export default function NoteList({ del, notes }: NoteListProps) {
               title={note.title}
               text={note.text}
               index={index}
+              isFavorite={note.isFavorite}
               del={del}
               noteId={note.noteId}
             />

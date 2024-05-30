@@ -51,3 +51,8 @@
 
   padding: 2rem;
 }
+
+#today-notes-title{
+  position: absolute;
+  font-size: 2rem;
+}

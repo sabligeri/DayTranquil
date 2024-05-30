@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function AddNote({ reFetchNotes, userId }) {
+interface AddNoteProps {
+  reFetchNotes: () => void;
+  userId: string;
+}
+
+export default function AddNote({ reFetchNotes, userId }: AddNoteProps) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [date, setDate] = useState(new Date());

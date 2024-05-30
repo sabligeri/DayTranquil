@@ -21,7 +21,7 @@ export default function NoteHeadBar({ reFetchNotes, userId }: NoteHeadBarProps) 
       </h2>
 
       <div>
-        <AddNote reFetchNotes={reFetchNotes} userId={userId} />
+        <AddNote reFetchNotes={reFetchNotes} userId={userId.toString()} />
       </div>
     </div>
   );

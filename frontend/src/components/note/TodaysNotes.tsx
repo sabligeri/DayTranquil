@@ -79,7 +79,7 @@ export default function TodaysNotes() {
           ))}
         </div>
       ) : (
-        <p id="no-notes">No notes for today.</p>
+        <h1 id="no-notes">No notes for today.</h1>
       )}
     </div>
   );
