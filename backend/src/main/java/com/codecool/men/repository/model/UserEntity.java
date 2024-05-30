@@ -23,6 +23,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Note> notes;
+
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<ShoppingListItem> shoppingListItems;
