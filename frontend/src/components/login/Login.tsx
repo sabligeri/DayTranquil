@@ -6,21 +6,21 @@ async function addUser(name: string, password: string) {
   console.log("Add user: ");
   console.log("name: " + name, "pass: " + password);
 
-  const userToAdd = {
+  const userToRegister = {
     name,
     password,
   };
 
   try {
-    const addUserResponse = await fetch("/api/user/add", {
+    const registerUserResponse = await fetch("/api/user/register", {
       method: "POST",
-      body: JSON.stringify(userToAdd),
+      body: JSON.stringify(userToRegister),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const addedUser = await addUserResponse.json();
+    const addedUser = await registerUserResponse.json();
 
     console.log("registered: " + addedUser);
   } catch (error) {

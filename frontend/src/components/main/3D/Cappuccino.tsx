@@ -9,11 +9,10 @@ Title: Cup of cappuccino
 import  { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
-import { Material } from 'three';
 
 export function Cappuccino(props) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { nodes, materials } = useGLTF('../models/cup_of_cappuccino/scene.gltf') as any;
+  const { nodes, materials } = useGLTF('../model/cup_of_cappuccino/scene.gltf') as any;
   const ref = useRef();
 
   useFrame((state, delta)=>{
