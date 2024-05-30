@@ -51,7 +51,6 @@ export default function NotePage() {
       const data = await response.json();
       if (data.length >= 3) {
         data.splice(3, 0, createEmptyNote(-1));
-        data.splice(3, 0, createEmptyNote(-2));
       }
 
       setNotes(data);

@@ -9,6 +9,7 @@ import NotePage from "./components/note/NotePage.js";
 import MainPage from "./components/main/MainPage.js";
 import ShoppingList from "./components/shoppingList/ShoppingList.js";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
