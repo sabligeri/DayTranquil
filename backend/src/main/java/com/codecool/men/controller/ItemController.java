@@ -16,6 +16,7 @@ public class ItemController {
     public ItemController(ShoppingListItemService listItemService) {
         this.listItemService = listItemService;
     }
+
     @GetMapping
     public List<ShoppingListItemDTO> getAllItems(@PathVariable long userId) {
         return listItemService.getAllItems(userId);
@@ -38,8 +39,5 @@ public class ItemController {
     public boolean deleteNote( @PathVariable("itemId") Long itemId, @PathVariable long userId) {
         return listItemService.deleteItem(itemId, userId);
     }
-
-
-
 
 }

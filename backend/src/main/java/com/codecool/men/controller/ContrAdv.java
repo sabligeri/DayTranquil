@@ -5,12 +5,12 @@ import com.codecool.men.controller.exceptions.NoteNotFoundException;
 import com.codecool.men.controller.exceptions.OperationFailedException;
 import com.codecool.men.controller.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-// class átnevezése, hogy ne vágjon egybe az annotáció nevével
-@org.springframework.web.bind.annotation.ControllerAdvice
-public class ControllerAdvice {
+@ControllerAdvice
+public class ContrAdv {
   @ResponseBody
   @ExceptionHandler({
           LoginFailedException.class,
