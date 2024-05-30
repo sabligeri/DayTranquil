@@ -7,6 +7,10 @@ import {
   faCircleChevronLeft,
   faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { squircle } from "ldrs";
+import "./Shopping.css";
+
+squircle.register();
 
 export default function ShoppingList() {
   const [items, setItems] = useState([]);
@@ -15,6 +19,7 @@ export default function ShoppingList() {
   const [userId, setUserId] = useState(0);
   const [userToken, setUserToken] = useState("");
   const [gotPremium, setGotPremium] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   interface item {
     itemId: number;
@@ -34,6 +39,7 @@ export default function ShoppingList() {
     if (id > 0) {
       setUserId(id);
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -121,16 +127,19 @@ export default function ShoppingList() {
     console.log(data);
   }
 
-  async function handleIncreaseQuantity(id: number, quantity: number){
+  async function handleIncreaseQuantity(id: number, quantity: number) {
     try {
-      const response = await fetch(`/api/shopping/${userId}/quantity/${id}?quantity=${quantity}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-      });
-  
+      const response = await fetch(
+        `/api/shopping/${userId}/quantity/${id}?quantity=${quantity}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
       if (response.ok) {
         fetchItems(); // Refresh the items list
       } else {
@@ -140,17 +149,20 @@ export default function ShoppingList() {
       console.error("Error updating quantity:", error);
     }
   }
-  
-  async function handleDecreaseQuantity(id: number, quantity: number){
+
+  async function handleDecreaseQuantity(id: number, quantity: number) {
     try {
-      const response = await fetch(`/api/shopping/${userId}/quantity/${id}?quantity=${quantity}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-      });
-  
+      const response = await fetch(
+        `/api/shopping/${userId}/quantity/${id}?quantity=${quantity}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
       if (response.ok) {
         fetchItems(); // Refresh the items list
       } else {
@@ -163,7 +175,18 @@ export default function ShoppingList() {
 
   return (
     <>
-      {!gotPremium ? (
+      {loading ? ( // Show loading screen while loading
+        <div className="loading-screen">
+          <l-squircle
+            size="37"
+            stroke="5"
+            stroke-length="0.15"
+            bg-opacity="0.1"
+            speed="0.9"
+            color="white"
+          ></l-squircle>
+        </div>
+      ) : !gotPremium ? (
         <div className="no-premium">
           <h2>THIS FEATURE IS ONLY ACCESSIBLE FOR PREMIUM USERS</h2>
           <form action="" onSubmit={(e) => handleBuyPremium(e)}>
@@ -212,13 +235,23 @@ export default function ShoppingList() {
                         <td>
                           <div className="item-quantity">
                             <FontAwesomeIcon
-                            onClick={() => handleDecreaseQuantity(item.itemId, item.quantity - 1)}
+                              onClick={() =>
+                                handleDecreaseQuantity(
+                                  item.itemId,
+                                  item.quantity - 1
+                                )
+                              }
                               className="decr-btn"
                               icon={faCircleChevronLeft}
                             />
                             <span>{item.quantity}</span>
                             <FontAwesomeIcon
-                              onClick={() => handleIncreaseQuantity(item.itemId, item.quantity + 1)}
+                              onClick={() =>
+                                handleIncreaseQuantity(
+                                  item.itemId,
+                                  item.quantity + 1
+                                )
+                              }
                               className="incr-btn"
                               icon={faCircleChevronRight}
                             />
