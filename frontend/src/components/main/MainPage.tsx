@@ -10,7 +10,7 @@ export default function MainPage() {
           <MyCanva />
         </div>
       </div>
-      <div className="mainpage-conatainer-back">
+      <div className="mainpage-conatainer-back"> 
         <div className="mainpage-conatainer-front" >
         <TodaysNotes />
         </div>

@@ -7,7 +7,7 @@ import com.codecool.men.service.ShoppingListItemService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+// userId nems zükséges mivel a jwt token-ből ki lehet szedni az id-t
 @RestController
 @RequestMapping("/api/shopping/{userId}")
 public class ItemController {

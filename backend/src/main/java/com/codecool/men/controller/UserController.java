@@ -21,7 +21,7 @@ public class UserController {
   public ResponseEntity<?> loginUser(@RequestBody NewUserDTO newUserDTO) {
         return userService.loginUser(newUserDTO);
   }
-
+//web security config fájl átírása, login, register endpointok permitAll a többi user role
   @PatchMapping("/edit/username/{userId}")
   @PreAuthorize("hasRole('USER')")
   public UserNameDTO editUsername(@RequestBody UserNameDTO username, @PathVariable int userId) {

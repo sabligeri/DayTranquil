@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+// class átnevezése, hogy ne vágjon egybe az annotáció nevével
 @org.springframework.web.bind.annotation.ControllerAdvice
 public class ControllerAdvice {
   @ResponseBody
