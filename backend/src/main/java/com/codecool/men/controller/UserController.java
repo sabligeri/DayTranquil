@@ -34,7 +34,7 @@ public class UserController {
     return userService.editUserPassword(password, userId);
   }
 
-  @PatchMapping("/edit/premium/{userId}")
+  @PatchMapping("/subscribe/{userId}")
   @PreAuthorize("hasRole('USER')")
   public boolean addPremiumToUser(@PathVariable long userId){
     return userService.addPremiumToUser(userId);
@@ -47,8 +47,8 @@ public class UserController {
     return userService.deleteUser(userId);
   }
 
-  @PostMapping("/add")
-  public boolean addUser(@RequestBody NewUserDTO newUser) {
+  @PostMapping("/register")
+  public boolean registerUser(@RequestBody NewUserDTO newUser) {
     return userService.addUser(newUser);
   }
 }
