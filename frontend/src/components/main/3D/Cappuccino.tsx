@@ -13,7 +13,7 @@ import * as THREE from 'three';
 
 export function Cappuccino() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { nodes, materials } = useGLTF('../src/components/main/model/cup_of_cappuccino/scene.gltf') as any; //./model/cup_of_cappuccino/scene.gltf
+  const { nodes, materials } = useGLTF('./src/components/main/model/cup_of_cappuccino/scene.gltf') as any; //./model/cup_of_cappuccino/scene.gltf
   const ref = useRef<THREE.Group>(null);
 
   useFrame((_, delta)=>{

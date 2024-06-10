@@ -60,9 +60,9 @@ public class WebSecurityConfig {
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth ->
-                    auth.requestMatchers("api/user/**").permitAll()
+                    auth.requestMatchers("/api/user/**").permitAll()
                             .requestMatchers("/api/note/**").hasRole("USER")
-                            .requestMatchers("api/shopping/**").hasRole("PREMIUM")
+                            .requestMatchers("/api/shopping/**").hasRole("PREMIUM")
                             .anyRequest().authenticated()
 
             );

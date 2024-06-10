@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:latest
+    image: "postgres:latest"
     container_name: db
     environment:
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_DB: test_db
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
@@ -17,7 +17,7 @@ services:
     image: 'notes-backend'
     build:
       context: .
-    container_name: app
+    container_name: app-notes
     depends_on:
       - db
     ports:
@@ -27,6 +27,15 @@ services:
       SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SECRET_KEY: ${SECRET_KEY}
+
+  vite-app:
+    build:
+      context: ../express
+    container_name: vite-app
+    ports:
+      - "9090:9090"
+    depends_on:
+      - app
 
 volumes:
   postgres_data:
