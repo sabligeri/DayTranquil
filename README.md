@@ -65,8 +65,8 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/dailyease.git
-    cd dailyease
+    git clone https://github.com/your-username/DayTranquil.git
+    cd DayTranquil
     ```
 
 2. Build the Docker images and start the containers:
